@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'starter.factory'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -18,6 +18,27 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
+    }
+  });
+})
+
+.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+ 
+    if ('data' in next && 'authorizedRoles' in next.data) {
+      var authorizedRoles = next.data.authorizedRoles;
+      if (!AuthService.isAuthorized(authorizedRoles)) {
+        event.preventDefault();
+        $state.go($state.current, {}, {reload: true});
+        $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+      }
+    }
+ 
+    if (!AuthService.isAuthenticated()) {
+      if (next.name !== 'login') {
+        event.preventDefault();
+        $state.go('login');
+      }
     }
   });
 })
@@ -44,7 +65,11 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       'menuContent': {
         templateUrl: 'templates/search.html'
       }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.admin]
     }
+
   })
 
   .state('app.browse', {
@@ -75,5 +100,10 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+ 
+  $urlRouterProvider.otherwise(function ($injector, $location) {
+    var $state = $injector.get("$state");
+    $state.go("app.playlists");
+  });
+
 });

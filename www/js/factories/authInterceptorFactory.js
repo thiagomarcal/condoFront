@@ -1,4 +1,4 @@
-angular.module('auth.factory', [])
+angular.module('starter.factory', [])
 
 .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   return {
@@ -9,7 +9,7 @@ angular.module('auth.factory', [])
       }[response.status], response);
       return $q.reject(response);
     }
-  };
+  };    
 })
 
 .config(function ($httpProvider) {

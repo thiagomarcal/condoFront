@@ -1,8 +1,9 @@
-angular.module('auth.service', [])
+angular.module('starter.services', [])
 
 
 .service("AuthService", function($http, $q, USER_ROLES) {
     var LOCAL_TOKEN_KEY = 'yourTokenKey';
+    var LOCAL_USERNAME = 'yourUsername';
     var username = '';
     var isAuthenticated = false;
     var role = '';
@@ -10,30 +11,27 @@ angular.module('auth.service', [])
 
     function loadUserCredentials() {
         var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
+        var user = window.localStorage.getItem(LOCAL_USERNAME);
         if (token) {
-            useCredentials(token);
+            useCredentials(token, user);
         }
     }
 
-    function storeUserCredentials(token) {
+    function storeUserCredentials(token, userT) {
         window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
-        useCredentials(token);
+        window.localStorage.setItem(LOCAL_USERNAME, userT);
+        useCredentials(token, userT);
     }
 
-    function useCredentials(token) {
-        username = token.split('.')[0];
+    function useCredentials(token, userT) {
+        username = userT;
         isAuthenticated = true;
         authToken = token;
 
-        if (username == 'admin') {
-            role = USER_ROLES.admin;
-        }
-        if (username == 'user') {
-            role = USER_ROLES.public;
-        }
-
         // Set the token as header for your requests!
         $http.defaults.headers.common['X-Auth-Token'] = token;
+
+        obterRole();
     }
 
     function destroyUserCredentials() {
@@ -42,17 +40,33 @@ angular.module('auth.service', [])
         isAuthenticated = false;
         $http.defaults.headers.common['X-Auth-Token'] = undefined;
         window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+        window.localStorage.removeItem(LOCAL_USERNAME);
     }
+
+    var obterRole = function() {
+        var deferred = $q.defer();
+
+        $http.get('http://localhost:8080/api/user/roles')
+         .success(function(data) {
+            role = data;
+            deferred.resolve(); 
+         })
+         .error(function(response) {
+           deferred.reject('Login Failed.');
+         });
+
+        return deferred.promise; 
+    };
 
     var login = function(name, pw) {
 
-        var authenticationRequest = {usename: name, password: pw};
+        var authenticationRequest = {username: name, password: pw};
 
         var deferred = $q.defer();
 
-        $http.post('localhost:8080/auth', authenticationRequest)
+        $http.post('http://localhost:8080/api/auth', authenticationRequest)
          .success(function(data) {
-           storeUserCredentials(name + '.yourServerToken');
+           storeUserCredentials(data.token, name);
            deferred.resolve('Login success.');
          })
          .error(function(response) {
