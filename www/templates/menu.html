@@ -18,9 +18,6 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-click="login()">
-          Login
-        </ion-item>
         <ion-item menu-close href="#/app/search">
           Search
         </ion-item>
@@ -31,6 +28,10 @@
           Playlists
         </ion-item>
       </ion-list>
+
+    <button class="button icon-left ion-log-out button-stable" ng-click="logout()">Logout</button>
+  
+
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>

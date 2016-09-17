@@ -1,7 +1,7 @@
-angular.module('starter.services', [])
+angular.module('auth.services', [])
 
 
-.service("AuthService", function($http, $q, USER_ROLES) {
+.service("AuthService", function($http, $q, USER_ROLES, $state) {
     var LOCAL_TOKEN_KEY = 'yourTokenKey';
     var LOCAL_USERNAME = 'yourUsername';
     var username = '';
@@ -12,7 +12,7 @@ angular.module('starter.services', [])
     function loadUserCredentials() {
         var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
         var user = window.localStorage.getItem(LOCAL_USERNAME);
-        if (token) {
+        if (token && user) {
             useCredentials(token, user);
         }
     }
@@ -31,7 +31,9 @@ angular.module('starter.services', [])
         // Set the token as header for your requests!
         $http.defaults.headers.common['X-Auth-Token'] = token;
 
-        obterRole();
+        obterRole().then(function (argument) {
+             $state.go('app.playlists');
+        });
     }
 
     function destroyUserCredentials() {
@@ -47,8 +49,8 @@ angular.module('starter.services', [])
         var deferred = $q.defer();
 
         $http.get('http://localhost:8080/api/user/roles')
-         .success(function(data) {
-            role = data;
+         .success(function(user) {
+            role = user.roles;
             deferred.resolve(); 
          })
          .error(function(response) {

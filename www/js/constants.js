@@ -6,8 +6,8 @@ angular.module('starter')
 })
  
 .constant('USER_ROLES', {
-  admin: 'admin',
-  root: 'root',
-  user: 'user',
-  public: 'public'
+  admin: 'ADMIN',
+  root: 'ROOT',
+  user: 'USER',
+  public: 'PUBLIC'
 });

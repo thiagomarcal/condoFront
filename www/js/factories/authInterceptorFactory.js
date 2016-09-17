@@ -1,4 +1,4 @@
-angular.module('starter.factory', [])
+angular.module('interceptor.factory', [])
 
 .factory('AuthInterceptor', function ($rootScope, $q, AUTH_EVENTS) {
   return {
