@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominios.controller', 'condominio.controller', 'condominio.service'])
 //angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
@@ -90,6 +90,24 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }
       }
     })
+    .state('app.condominios', {
+      url: '/condominios',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/condominios.html',
+          resolve: {
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
+                }
+          },
+
+          controller: 'CondominiosCtrl'
+        }
+      },
+      data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+    })
 
   .state('app.single', {
     url: '/playlists/:playlistId',
@@ -99,9 +117,63 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         controller: 'PlaylistCtrl'
       }
     }
+  })
+
+  .state('app.condominio', {
+    url: '/condominios/:condominioId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/condominio.html',
+        resolve: {
+                condominio: function(CondominioService, $stateParams){
+                    return CondominioService.get($stateParams.condominioId);
+                }
+        },
+        controller: 'CondominioCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
+  .state('app.condominioEditar', {
+    url: '/condominios/editar/:condominioId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/condominio_editar.html',
+        resolve: {
+                condominio: function(CondominioService, $stateParams){
+                    return CondominioService.get($stateParams.condominioId);
+                }
+        },
+        controller: 'CondominioCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
+  .state('app.condominioAdicionar', {
+    url: '/condominios/adicionar/',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/condominio_adicionar.html',
+        resolve: {
+                condominio: function(CondominioService, $stateParams){
+                    return {};
+                }
+        },
+        controller: 'CondominioCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
   });
-  // if none of the above states are matched, use this as the fallback
- 
+
+   
   $urlRouterProvider.otherwise(function ($injector, $location) {
     var $state = $injector.get("$state");
     $state.go("app.playlists");

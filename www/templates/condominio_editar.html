@@ -1,0 +1,33 @@
+<ion-view view-title="Condominio">
+  <ion-content>
+   
+	 <div class="list">
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Nome</span>
+	    <input type="text" value="{{condominio.name}}" ng-model="condominio.name">
+	  </label>
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Logradouro</span>
+	    <input type="text" value="{{condominio.logradouro}}" ng-model="condominio.logradouro">
+	  </label>
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Numero</span>
+	    <input type="text" value="{{condominio.numero}}"ng-model="condominio.numero">
+	  </label>
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Cidade</span>
+	    <input type="text" value="{{condominio.cidade}}" ng-model="condominio.cidade">
+	  </label>
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">UF</span>
+	    <input type="text" value="{{condominio.uf}}" ng-model="condominio.uf">
+	  </label>
+	</div>
+
+	<button ng-click="enviarEdicao()" class="button button-block button-positive">
+  		Editar
+	</button>
+
+
+  </ion-content>
+</ion-view>
