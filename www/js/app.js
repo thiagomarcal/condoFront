@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominios.controller', 'condominio.controller', 'condominio.service'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service'])
 //angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
@@ -98,10 +98,13 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
           resolve: {
                 condominios: function(CondominioService){
                     return CondominioService.getLista();
+                },
+                condominio: function(){
+                    return {};
                 }
           },
 
-          controller: 'CondominiosCtrl'
+          controller: 'CondominioCtrl'
         }
       },
       data: {
@@ -125,6 +128,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       'menuContent': {
         templateUrl: 'templates/condominio.html',
         resolve: {
+                condominios: function(){
+                    return {};
+                },  
                 condominio: function(CondominioService, $stateParams){
                     return CondominioService.get($stateParams.condominioId);
                 }
@@ -143,6 +149,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       'menuContent': {
         templateUrl: 'templates/condominio_editar.html',
         resolve: {
+                condominios: function(){
+                    return {};
+                },
                 condominio: function(CondominioService, $stateParams){
                     return CondominioService.get($stateParams.condominioId);
                 }
@@ -161,6 +170,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       'menuContent': {
         templateUrl: 'templates/condominio_adicionar.html',
         resolve: {
+                condominios: function(){
+                    return {};
+                },
                 condominio: function(CondominioService, $stateParams){
                     return {};
                 }
