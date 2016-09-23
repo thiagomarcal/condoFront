@@ -68,12 +68,28 @@ angular.module('visitante.service', [])
   }
 
 
+  function adicionar(visitante) {
+
+    var deferred = $q.defer();
+
+    $http.post('http://localhost:8080/api/visitante/', visitante)
+      .success(function(data) {
+        deferred.resolve(data);
+      })
+      .error(function(response) {
+        deferred.reject(response);
+      });
+
+    return deferred.promise;
+  }
+
 
   return {
     getListaDeVisitantes: getListaDeVisitantes,
     get: get,
     put: put,
     deletar: deletar,
+    adicionar: adicionar,
   };
 
 

@@ -33,6 +33,10 @@ angular.module('visitante.controller', [])
   };
 
 
+  $scope.adicionarVisitante = function() {
+    $state.go('app.visitanteAdicionar');
+  };
+
   $scope.enviarEdicaoDeVisitante = function () {
     VisitanteService.put($scope.visitante).then(function (visitante) {
       var alertPopup = $ionicPopup.alert({
@@ -41,6 +45,18 @@ angular.module('visitante.controller', [])
       });
       $scope.$emit('listaVisitanteAlterada');
       $state.go('app.visitantes', {visitanteId: visitante.id});
+    });
+  };
+
+  $scope.novoVisitante = function () {
+    VisitanteService.adicionar($scope.visitante).then(function (visitante) {
+      var alertPopup = $ionicPopup.alert({
+        title: 'CondoApp',
+        template: 'Visitante Criado com sucesso!'
+      });
+      $scope.$emit('listaVisitanteAlterada');
+      $state.go('app.visitantes', {}, {
+        reload: true});
     });
   };
 

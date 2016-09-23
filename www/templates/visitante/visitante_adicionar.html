@@ -1,0 +1,32 @@
+<ion-view view-title="Condominio">
+  <ion-content>
+
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nome</span>
+        <input type="text" value="{{visitante.nome}}" ng-model="condominio.name">
+      </label>
+
+      <label class = "item item-input item-select item-dark">
+        <div class = "input-label">
+          Bloco
+        </div>
+
+        <select>
+          <option>Bloco 1</option>
+          <option selected>Bloco 2</option>
+          <option>Bloco 3</option>
+        </select>
+      </label>
+
+    </div>
+
+
+
+    <button ng-click="novoVisitante()" class="button button-block button-positive">
+      Adicionar
+    </button>
+
+
+  </ion-content>
+</ion-view>

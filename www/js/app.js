@@ -122,7 +122,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'login.controller', '
                 return VisitanteService.getListaDeVisitantes();
               },
               visitante: function () {
-                return {};
+                return {};app.visitanteEditar
               }
             },
 
@@ -153,6 +153,49 @@ angular.module('starter', ['ionic', 'starter.controllers', 'login.controller', '
           authorizedRoles: [USER_ROLES.admin]
         }
       })
+
+      .state('app.visitante', {
+        url: '/visitantes/:visitanteId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/visitante.html',
+            resolve: {
+              visitantes: function () {
+                return {};
+              },
+              visitante: function (VisitanteService, $stateParams) {
+                return VisitanteService.get($stateParams.visitanteId);
+              }
+            },
+            controller: 'VisitanteCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.visitanteAdicionar', {
+        url: '/visitantes/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/visitante/visitante_adicionar.html',
+            resolve: {
+              visitantes: function () {
+                return {};
+              },
+              visitante: function (VisitanteService, $stateParams) {
+                return {};
+              }
+            },
+            controller: 'VisitanteCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
       .state('app.single', {
         url: '/playlists/:playlistId',
         views: {
