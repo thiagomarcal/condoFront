@@ -384,13 +384,16 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         url: '/visitantes',
         views: {
           'menuContent': {
-            templateUrl: 'templates/visitantes.html',
+            templateUrl: 'templates/visitante/visitantes.html',
             resolve: {
               visitantes: function (VisitanteService) {
                 return VisitanteService.getListaDeVisitantes();
               },
               visitante: function () {
                 return {};app.visitanteEditar
+              },
+              blocos: function () {
+                return {};
               }
             },
 
@@ -405,13 +408,16 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         url: '/visitantes/editar/:visitanteId',
         views: {
           'menuContent': {
-            templateUrl: 'templates/visitante_editar.html',
+            templateUrl: 'templates/visitante/visitante_editar.html',
             resolve: {
               visitantes: function () {
                 return {};
               },
               visitante: function (VisitanteService, $stateParams) {
                 return VisitanteService.get($stateParams.visitanteId);
+              },
+              blocos: function () {
+                return {};
               }
             },
             controller: 'VisitanteCtrl'
@@ -426,13 +432,16 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         url: '/visitantes/:visitanteId',
         views: {
           'menuContent': {
-            templateUrl: 'templates/visitante.html',
+            templateUrl: 'templates/visitante/visitante.html',
             resolve: {
               visitantes: function () {
                 return {};
               },
               visitante: function (VisitanteService, $stateParams) {
                 return VisitanteService.get($stateParams.visitanteId);
+              },
+              blocos: function () {
+                return {};
               }
             },
             controller: 'VisitanteCtrl'
@@ -454,6 +463,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               },
               visitante: function (VisitanteService, $stateParams) {
                 return {};
+              },
+              blocos: function (BlocoService) {
+                return BlocoService.getLista();
               }
             },
             controller: 'VisitanteCtrl'
