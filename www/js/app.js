@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service', 'bloco.controller', 'bloco.service'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service'])
 //angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
@@ -137,6 +137,31 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
     })
 
+    .state('app.areas', {
+      url: '/areas',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/areas.html',
+          resolve: {
+                areas: function(AreaService){
+                    return AreaService.getLista();
+                },
+                area: function(){
+                    return {};
+                },
+                condominios: function(){
+                    return {};
+                }
+          },
+
+          controller: 'AreaCtrl'
+        }
+      },
+      data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+    })
+
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
@@ -192,6 +217,31 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
+
+  .state('app.area', {
+    url: '/areas/:areaId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/area.html',
+        resolve: {
+                areas: function(){
+                    return {};
+                },  
+                area: function(AreaService, $stateParams){
+                    return AreaService.get($stateParams.areaId);
+                },
+                condominios: function(){
+                    return {};
+                }
+        },
+        controller: 'AreaCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
   .state('app.condominioEditar', {
     url: '/condominios/editar/:condominioId',
     views: {
@@ -237,6 +287,30 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
+  .state('app.areaEditar', {
+    url: '/areas/editar/:areaId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/area_editar.html',
+        resolve: {
+                areas: function(){
+                    return {};
+                },
+                area: function(AreaService, $stateParams){
+                    return AreaService.get($stateParams.areaId);
+                },
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
+                }
+        },
+        controller: 'AreaCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
    .state('app.condominioAdicionar', {
     url: '/condominios/adicionar/',
     views: {
@@ -275,6 +349,30 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 }
         },
         controller: 'BlocoCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
+  .state('app.areaAdicionar', {
+    url: '/areas/adicionar/',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/area_adicionar.html',
+        resolve: {
+                areas: function(){
+                    return {};
+                },
+                area: function(AreaService, $stateParams){
+                    return {};
+                },
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
+                }
+        },
+        controller: 'AreaCtrl'
       }
     },
     data: {

@@ -1,0 +1,30 @@
+<ion-view view-title="Area">
+  <ion-content>
+   
+	 <div class="list">
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Nome</span>
+	    <input type="text" value="{{area.nome}}" ng-model="area.nome">
+	  </label>
+
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Descricao</span>
+	    <input type="text" value="{{area.descricao}}" ng-model="area.descricao">
+	  </label>
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+			Condominio
+			</div>
+			<select ng-model="area.condominio" ng-options="condominio.name for condominio in condominios">
+			</select>
+		</label>
+	</div>
+
+	<button ng-click="enviarAdicao()" class="button button-block button-positive">
+  		Adicionar
+	</button>
+
+
+  </ion-content>
+</ion-view>
