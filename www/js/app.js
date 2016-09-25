@@ -237,6 +237,27 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
+   .state('app.condominioAdicionar', {
+    url: '/condominios/adicionar/',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/condominio_adicionar.html',
+        resolve: {
+                condominio: function(CondominioService, $stateParams){
+                    return {};
+                },
+                condominios: function(CondominioService){
+                    return {};
+                }
+        },
+        controller: 'CondominioCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
   .state('app.blocoAdicionar', {
     url: '/blocos/adicionar/',
     views: {
