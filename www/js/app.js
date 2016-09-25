@@ -225,8 +225,8 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 bloco: function(BlocoService, $stateParams){
                     return BlocoService.get($stateParams.blocoId);
                 },
-                condominios: function(){
-                    return {};
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
                 }
         },
         controller: 'BlocoCtrl'
