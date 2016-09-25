@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service', 'bloco.controller', 'bloco.service'])
 //angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
@@ -112,6 +112,31 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
     })
 
+    .state('app.blocos', {
+      url: '/blocos',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/blocos.html',
+          resolve: {
+                blocos: function(BlocoService){
+                    return BlocoService.getLista();
+                },
+                bloco: function(){
+                    return {};
+                },
+                condominios: function(){
+                    return {};
+                }
+          },
+
+          controller: 'BlocoCtrl'
+        }
+      },
+      data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+    })
+
   .state('app.single', {
     url: '/playlists/:playlistId',
     views: {
@@ -143,6 +168,30 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
+  .state('app.bloco', {
+    url: '/blocos/:blocoId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/bloco.html',
+        resolve: {
+                blocos: function(){
+                    return {};
+                },  
+                bloco: function(BlocoService, $stateParams){
+                    return BlocoService.get($stateParams.blocoId);
+                },
+                condominios: function(){
+                    return {};
+                }
+        },
+        controller: 'BlocoCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
   .state('app.condominioEditar', {
     url: '/condominios/editar/:condominioId',
     views: {
@@ -164,20 +213,47 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
-  .state('app.condominioAdicionar', {
-    url: '/condominios/adicionar/',
+  .state('app.blocoEditar', {
+    url: '/blocos/editar/:blocoId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/condominio_adicionar.html',
+        templateUrl: 'templates/bloco_editar.html',
         resolve: {
-                condominios: function(){
+                blocos: function(){
                     return {};
                 },
-                condominio: function(CondominioService, $stateParams){
+                bloco: function(BlocoService, $stateParams){
+                    return BlocoService.get($stateParams.blocoId);
+                },
+                condominios: function(){
                     return {};
                 }
         },
-        controller: 'CondominioCtrl'
+        controller: 'BlocoCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
+  .state('app.blocoAdicionar', {
+    url: '/blocos/adicionar/',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/bloco_adicionar.html',
+        resolve: {
+                blocos: function(){
+                    return {};
+                },
+                bloco: function(BlocoService, $stateParams){
+                    return {};
+                },
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
+                }
+        },
+        controller: 'BlocoCtrl'
       }
     },
     data: {
