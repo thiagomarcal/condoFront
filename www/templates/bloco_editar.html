@@ -1,0 +1,26 @@
+<ion-view view-title="Bloco">
+  <ion-content>
+   
+	 <div class="list">
+	  <label class="item item-input item-stacked-label">
+	    <span class="input-label">Nome</span>
+	    <input type="text" value="{{bloco.nome}}" ng-model="bloco.nome">
+	  </label>
+
+	  <label class="item item-input item-select">
+			<div class="input-label">
+			Condominio
+			</div>
+			<select ng-model="bloco.condominio" ng-options="condominio.name for condominio in condominios">
+			</select>
+		</label>
+
+	</div>
+
+	<button ng-click="enviarEdicao()" class="button button-block button-positive">
+  		Editar
+	</button>
+
+
+  </ion-content>
+</ion-view>
