@@ -4,8 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service', 'bloco.controller',
-        'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'visitante.controller', 'visitante.service'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller',
+                          'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller',
+                          'usuario.service', 'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -464,7 +465,8 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
             controller: 'VisitanteCtrl'
           }
         }, data: {authorizedRoles: [USER_ROLES.admin]}
-      }).state('app.visitanteEditar', {
+      })
+      .state('app.visitanteEditar', {
       url: '/visitantes/editar/:visitanteId',
       views: {
         'menuContent': {
@@ -482,7 +484,8 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }
       },
       data: {authorizedRoles: [USER_ROLES.admin]}
-    }).state('app.visitante', {
+    })
+      .state('app.visitante', {
       url: '/visitantes/:visitanteId',
       views: {
         'menuContent': {
@@ -517,6 +520,95 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       },
       data: {authorizedRoles: [USER_ROLES.admin]}
     })
+      .state('app.apartamentos', {
+        url: '/apartamentos',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/apartamento/apartamentos.html',
+            resolve: {
+              apartamentos: function (ApartamentoService) {
+                return ApartamentoService.getLista();
+              },
+              apartamento: function () {
+                return {};
+                app.apartamentoEditar;
+              },
+              blocos: function () {
+                return {};
+              }
+            },
+            controller: 'ApartamentoCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.apartamentoEditar', {
+        url: '/apartamentos/editar/:apartamentoId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/apartamento/apartamento_editar.html',
+            resolve: {
+              apartamentos: function(){
+                return {};
+              },
+              apartamento: function(ApartamentoService, $stateParams){
+                return ApartamentoService.get($stateParams.apartamentoId);
+              },
+              blocos: function(BlocoService){
+                return BlocoService.getLista();
+              }
+            },
+            controller: 'ApartamentoCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+      .state('app.apartamento', {
+        url: '/apartamentos/:apartamentoId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/apartamento/apartamento.html', resolve: {
+              apartamentos: function () {
+                return {};
+              },
+              apartamento: function (ApartamentoService, $stateParams) {
+                return ApartamentoService.get($stateParams.apartamentoId);
+              },
+              blocos: function () {
+                return {};
+              }
+            }, controller: 'ApartamentoCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+
+      .state('app.apartamentoAdicionar', {
+        url: '/apartamentos/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/apartamento/apartamento_adicionar.html',
+            resolve: {
+              apartamentos: function(){
+                return {};
+              },
+              apartamento: function(BlocoService, $stateParams){
+                return {};
+              },
+              blocos: function(BlocoService){
+                return BlocoService.getLista();
+              }
+            },
+            controller: 'ApartamentoCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
 
       .state('app.areaAdicionar', {
         url: '/areas/adicionar/',

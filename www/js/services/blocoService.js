@@ -7,15 +7,15 @@ angular.module('bloco.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/blocos')
-         .success(function(data) {
-           deferred.resolve(data);
-         })
-         .error(function(response) {
-           deferred.reject(response);
-         });
+      $http.get('http://localhost:8080/api/blocos')
+        .success(function (data) {
+          deferred.resolve(data);
+        })
+        .error(function (response) {
+          deferred.reject(response);
+        });
 
-         return deferred.promise;
+      return deferred.promise;
     }
 
     function get(blocoId) {

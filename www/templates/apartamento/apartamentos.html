@@ -1,0 +1,32 @@
+<ion-view view-title="Apartamentos">
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-plus-circled" ng-click="adicionar()"></a>
+  </ion-nav-buttons>
+  <ion-content>
+
+    <ion-list>
+
+      <ion-item ng-repeat="apartamento in apartamentos" href="#/app/apartamentos/{{apartamento.id}}"
+                item="item">
+        <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
+
+        {{apartamento.nome}}
+
+        <span class="item-note">
+            Bloco: {{apartamento.bloco.nome}}
+          </span>
+
+        <ion-option-button class="button-assertive"
+                           ng-click="excluir(apartamento.id)">
+          Excluir
+        </ion-option-button>
+        <ion-option-button class="button-calm"
+                           ng-click="editar(apartamento.id)">
+          Editar
+        </ion-option-button>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

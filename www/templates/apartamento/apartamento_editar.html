@@ -1,0 +1,31 @@
+<ion-view view-title="Edição de Apartamento">
+  <ion-content>
+
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nome</span>
+        <input type="text" value="{{apartamento.nome}}" ng-model="apartamento.nome">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Número</span>
+        <input type="text" value="{{apartamento.numero}}" ng-model="apartamento.numero">
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Blocos
+        </div>
+        <select ng-model="apartamento.bloco" ng-options="bloco.nome for bloco in blocos">
+        </select>
+      </label>
+
+    </div>
+
+    <button ng-click="enviarEdicao()" class="button button-block button-positive">
+      Editar
+    </button>
+
+
+  </ion-content>
+</ion-view>
