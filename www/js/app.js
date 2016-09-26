@@ -6,7 +6,8 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller',
                           'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller',
-                          'usuario.service', 'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service'])
+                          'usuario.service', 'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
+                          'edificio.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -533,7 +534,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 return {};
                 app.apartamentoEditar;
               },
-              blocos: function () {
+              edificios: function () {
                 return {};
               }
             },
@@ -554,8 +555,8 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               apartamento: function(ApartamentoService, $stateParams){
                 return ApartamentoService.get($stateParams.apartamentoId);
               },
-              blocos: function(BlocoService){
-                return BlocoService.getLista();
+              edificios: function(EdificioService){
+                return EdificioService.getLista();
               }
             },
             controller: 'ApartamentoCtrl'
@@ -576,7 +577,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               apartamento: function (ApartamentoService, $stateParams) {
                 return ApartamentoService.get($stateParams.apartamentoId);
               },
-              blocos: function () {
+              edificios: function () {
                 return {};
               }
             }, controller: 'ApartamentoCtrl'
@@ -595,11 +596,11 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               apartamentos: function(){
                 return {};
               },
-              apartamento: function(BlocoService, $stateParams){
+              apartamento: function(ApartamentoService, $stateParams){
                 return {};
               },
-              blocos: function(BlocoService){
-                return BlocoService.getLista();
+              edificios: function(EdificioService){
+                return EdificioService.getLista();
               }
             },
             controller: 'ApartamentoCtrl'

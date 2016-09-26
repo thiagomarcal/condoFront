@@ -3,13 +3,11 @@
  */
 angular.module('apartamento.controller', [])
 
-  .controller('ApartamentoCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, apartamento, apartamentos, ApartamentoService, blocos, BlocoService) {
-
-
+  .controller('ApartamentoCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, apartamento, apartamentos, ApartamentoService, edificios, EdificioService) {
 
     $scope.apartamentos = apartamentos;
     $scope.apartamento = apartamento;
-    $scope.blocos = blocos;
+    $scope.edificios = edificios;
 
     $rootScope.$on('listaApartamentoAlterada', function() {
       ApartamentoService.getLista().then(function (data) {
@@ -54,7 +52,7 @@ angular.module('apartamento.controller', [])
       ApartamentoService.adicionar($scope.apartamento).then(function (apartamento) {
         var alertPopup = $ionicPopup.alert({
           title: 'CondoApp',
-          template: 'Apartamento' + apartamento.nome + ' Criado com sucesso!'
+          template: 'Apartamento ' + apartamento.nome + ' Criado com sucesso!'
         });
         $scope.$emit('listaApartamentoAlterada');
         $state.go('app.apartamentos', {}, {
