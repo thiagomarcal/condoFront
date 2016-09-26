@@ -1,0 +1,27 @@
+<ion-view view-title="Usuarios">
+	 <ion-nav-buttons side="right">
+      	<a class="button button-icon icon ion-plus-circled" ng-click="adicionar()"></a>
+    </ion-nav-buttons>
+  <ion-content>
+
+        <ion-list>
+
+        <ion-item ng-repeat="usuario in usuarios" href="#/app/usuarios/{{usuario.username}}" 
+                  item="item">
+                <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
+          {{usuario.username}}
+
+          <ion-option-button class="button-assertive"
+                             ng-click="excluir(usuario.username)">
+            Excluir
+          </ion-option-button>
+          <ion-option-button class="button-calm"
+                             ng-click="editar(usuario.username)">
+            Editar
+          </ion-option-button>
+         
+        </ion-item>
+
+      </ion-list>
+  </ion-content>
+</ion-view>
