@@ -112,6 +112,33 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
     })
 
+    .state('app.murais', {
+      url: '/murais',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/murais.html',
+          resolve: {
+                murais: function(MuralService){
+                    return MuralService.getLista();
+                },
+                mural: function(){
+                    return {};
+                },
+                condominios: function(){
+                    return {};
+                },
+                blocos: function(){
+                    return {};
+                }
+          },
+          controller: 'MuralCtrl'
+        }
+      },
+      data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+    })
+
     .state('app.usuarios', {
       url: '/usuarios',
       views: {
@@ -215,6 +242,33 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
+  .state('app.mural', {
+    url: '/murais/:muralId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mural.html',
+        resolve: {
+                murais: function(){
+                    return {};
+                },  
+                mural: function(MuralService, $stateParams){
+                    return MuralService.get($stateParams.muralId);
+                },
+                condominios: function(){
+                    return {};
+                },
+                blocos: function(){
+                    return {};
+                }
+        },
+        controller: 'MuralCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
   .state('app.usuario', {
     url: '/usuarios/:username',
     views: {
@@ -306,6 +360,33 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
       }
   })
 
+  .state('app.muralEditar', {
+    url: '/murais/editar/:muralId',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mural_editar.html',
+        resolve: {
+                murais: function(){
+                    return {};
+                },
+                mural: function(MuralService, $stateParams){
+                    return MuralService.get($stateParams.muralId);
+                },
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
+                },
+                blocos: function(BlocoService){
+                    return BlocoService.getLista();
+                }
+        },
+        controller: 'MuralCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
   .state('app.usuarioEditar', {
     url: '/usuarios/editar/:username',
     views: {
@@ -390,6 +471,33 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 }
         },
         controller: 'CondominioCtrl'
+      }
+    },
+    data: {
+        authorizedRoles: [USER_ROLES.admin]
+      }
+  })
+
+   .state('app.muralAdicionar', {
+    url: '/murais/adicionar/',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mural_adicionar.html',
+        resolve: {
+                mural: function(MuralService, $stateParams){
+                    return {};
+                },
+                murais: function(MuralService){
+                    return {};
+                },
+                condominios: function(CondominioService){
+                    return CondominioService.getLista();
+                },
+                blocos: function(BlocoService){
+                    return BlocoService.getLista();
+                }
+        },
+        controller: 'MuralCtrl'
       }
     },
     data: {

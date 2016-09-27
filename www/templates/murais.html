@@ -1,0 +1,36 @@
+<ion-view view-title="Murais">
+	 <ion-nav-buttons side="right">
+      	<a class="button button-icon icon ion-plus-circled" ng-click="adicionar()"></a>
+    </ion-nav-buttons>
+  <ion-content>
+   <!-- <div class="list">
+	    <a ng-repeat="condominio in condominios" href="#/app/condominios/{{condominio.id}}" class="item item-icon-right">
+		    {{condominio.name}}
+		    <i class="icon ion-ios-trash" ng-click="teste()" href="#/app/condominios"></i>
+		</a>
+
+    </div> -->
+
+        <ion-list>
+
+        <ion-item ng-repeat="mural in murais" href="#/app/murais/{{mural.id}}" 
+                  item="item">
+                <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
+          {{mural.destino.condominio.name}}
+          {{mural.destino.bloco.nome}}
+          {{mural.destino.edificio.nome}}
+
+          <ion-option-button class="button-assertive"
+                             ng-click="excluir(mural.id)">
+            Excluir
+          </ion-option-button>
+          <ion-option-button class="button-calm"
+                             ng-click="editar(mural.id)">
+            Editar
+          </ion-option-button>
+         
+        </ion-item>
+
+      </ion-list>
+  </ion-content>
+</ion-view>
