@@ -91,7 +91,7 @@ angular.module('edificio.service', [])
       getLista: getLista,
       get: get,
       put: put,
-      deeletar: deletar,
+      deletar: deletar,
       adicionar: adicionar,
 
     };

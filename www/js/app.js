@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller',
                           'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller',
                           'usuario.service', 'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                          'edificio.service'])
+                          'edificio.service', 'edificio.controller'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -604,6 +604,95 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               }
             },
             controller: 'ApartamentoCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.edificios', {
+        url: '/edificios',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/edificio/edificios.html',
+            resolve: {
+              edificios: function (EdificioService) {
+                return EdificioService.getLista();
+              },
+              edificio: function () {
+                return {};
+                app.edificioEditar;
+              },
+              blocos: function () {
+                return {};
+              }
+            },
+            controller: 'EdificioCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.edificioEditar', {
+        url: '/edificios/editar/:edificioId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/edificio/edificio_editar.html',
+            resolve: {
+              edificios: function(){
+                return {};
+              },
+              edificio: function(EdificioService, $stateParams){
+                return EdificioService.get($stateParams.edificioId);
+              },
+              blocos: function(BlocoService){
+                return BlocoService.getLista();
+              }
+            },
+            controller: 'EdificioCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.edificio', {
+        url: '/edificio/:edificioId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/edificio/edificio.html', resolve: {
+              edificios: function () {
+                return {};
+              },
+              edificio: function (EdificioService, $stateParams) {
+                return EdificioService.get($stateParams.edificioId);
+              },
+              blocos: function () {
+                return {};
+              }
+            }, controller: 'EdificioCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+      .state('app.edificioAdicionar', {
+        url: '/edificio/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/edificio/edificio_adicionar.html',
+            resolve: {
+              edificios: function(){
+                return {};
+              },
+              edificio: function(EdificioService, $stateParams){
+                return {};
+              },
+              blocos: function(BlocoService){
+                return BlocoService.getLista();
+              }
+            },
+            controller: 'EdificioCtrl'
           }
         },
         data: {
