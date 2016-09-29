@@ -33,7 +33,7 @@ angular.module('interceptor.factory', [])
         hideLoadingText();
         console.log('Response received with interceptor');
 
-      },300);
+      },600);
       
       return response;
     },

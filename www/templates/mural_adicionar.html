@@ -1,0 +1,50 @@
+<ion-view view-title="Mural">
+  <ion-content>
+   
+	 <div class="list">
+	  
+	  <ion-list>
+  			<ion-radio ng-model="choice" ng-value="'C'">Condominio</ion-radio>
+  			<ion-radio ng-model="choice" ng-value="'B'">Bloco</ion-radio>
+  			<ion-radio ng-model="choice" ng-value="'E'">Edificio</ion-radio>
+	 </ion-list>
+
+		<div ng-if="choice == 'C'">
+		 	<label class="item item-input item-select">
+				<div class="input-label">
+				Condominio
+				</div>
+				<select ng-model="mural.destino.condominio" ng-options="condominio.name for condominio in condominios">
+				</select>
+			</label>
+		</div>
+
+		<div ng-if="choice == 'B'">
+		 	<label class="item item-input item-select">
+				<div class="input-label">
+				Blocos
+				</div>
+				<select ng-model="mural.destino.bloco" ng-options="bloco.nome for bloco in blocos">
+				</select>
+			</label>
+		</div>
+
+		<div ng-if="choice == 'E'">
+		 	<label class="item item-input item-select">
+				<div class="input-label">
+				Edificios
+				</div>
+				<select ng-model="mural.destino.edificio" ng-options="edificio.nome for edificio in edificios">
+				</select>
+			</label>
+		</div>
+
+	</div>
+
+	<button ng-click="enviarAdicao()" class="button button-block button-positive">
+  		Adicionar
+	</button>
+
+
+  </ion-content>
+</ion-view>

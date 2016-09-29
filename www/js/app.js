@@ -4,10 +4,10 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller',
-                          'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller',
-                          'usuario.service', 'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                          'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
+                'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
+                  'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
+                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -108,6 +108,39 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
             },
 
             controller: 'CondominioCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.murais', {
+        url: '/murais',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/murais.html',
+            resolve: {
+              murais: function(MuralService){
+                return MuralService.getLista();
+              },
+              mural: function(){
+                return {};
+              },
+              condominio: function(){
+                return {};
+              },
+              condominios: function(){
+                return {};
+              },
+              bloco: function(){
+                return {};
+              },
+              blocos: function(){
+                return {};
+              }
+            },
+            controller: 'MuralCtrl'
           }
         },
         data: {
@@ -218,6 +251,39 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }
       })
 
+      .state('app.mural', {
+        url: '/murais/:muralId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mural.html',
+            resolve: {
+              murais: function(){
+                return {};
+              },
+              mural: function(MuralService, $stateParams){
+                return MuralService.get($stateParams.muralId);
+              },
+              condominio: function(){
+                return {};
+              },
+              condominios: function(){
+                return {};
+              },
+              bloco: function(){
+                return {};
+              },
+              blocos: function(){
+                return {};
+              }
+            },
+            controller: 'MuralCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
       .state('app.usuario', {
         url: '/usuarios/:username',
         views: {
@@ -302,6 +368,40 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               }
             },
             controller: 'CondominioCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.muralEditar', {
+        url: '/murais/editar/:muralId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mural_editar.html',
+            resolve: {
+              murais: function(){
+                return {};
+              },
+              mural: function(MuralService, $stateParams){
+                return MuralService.get($stateParams.muralId);
+              },
+              condominios: function(CondominioService){
+                return CondominioService.getLista();
+              },
+              condominio: function(){
+                return {};
+              },
+              blocos: function(BlocoService){
+                return BlocoService.getLista();
+              },
+              bloco: function(){
+                return {};
+              }
+
+            },
+            controller: 'MuralCtrl'
           }
         },
         data: {
@@ -400,6 +500,39 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }
       })
 
+      .state('app.muralAdicionar', {
+        url: '/murais/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mural_adicionar.html',
+            resolve: {
+              mural: function(MuralService, $stateParams){
+                return {};
+              },
+              murais: function(MuralService){
+                return {};
+              },
+              condominio: function(){
+                return {};
+              },
+              condominios: function(CondominioService){
+                return CondominioService.getLista();
+              },
+              bloco: function(){
+                return {};
+              },
+              blocos: function(BlocoService){
+                return BlocoService.getLista();
+              }
+            },
+            controller: 'MuralCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
 
       .state('app.usuarioAdicionar', {
         url: '/usuarios/adicionar/',
@@ -446,6 +579,32 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }
       })
 
+      .state('app.areaAdicionar', {
+        url: '/areas/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/area_adicionar.html',
+            resolve: {
+              areas: function(){
+                return {};
+              },
+              area: function(AreaService, $stateParams){
+                return {};
+              },
+              condominios: function(CondominioService){
+                return CondominioService.getLista();
+              }
+            },
+            controller: 'AreaCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+
+
       .state('app.visitantes', {
         url: '/visitantes',
         views: {
@@ -468,41 +627,41 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }, data: {authorizedRoles: [USER_ROLES.admin]}
       })
       .state('app.visitanteEditar', {
-      url: '/visitantes/editar/:visitanteId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/visitante/visitante_editar.html',
-          resolve: {
-            visitantes: function () {
-              return {};
-            }, visitante: function (VisitanteService, $stateParams) {
-              return VisitanteService.get($stateParams.visitanteId);
-            }, blocos: function () {
-              return {};
-            }
-          },
-          controller: 'VisitanteCtrl'
-        }
-      },
-      data: {authorizedRoles: [USER_ROLES.admin]}
-    })
+        url: '/visitantes/editar/:visitanteId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/visitante/visitante_editar.html',
+            resolve: {
+              visitantes: function () {
+                return {};
+              }, visitante: function (VisitanteService, $stateParams) {
+                return VisitanteService.get($stateParams.visitanteId);
+              }, blocos: function () {
+                return {};
+              }
+            },
+            controller: 'VisitanteCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      })
       .state('app.visitante', {
-      url: '/visitantes/:visitanteId',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/visitante/visitante.html', resolve: {
-            visitantes: function () {
-              return {};
-            }, visitante: function (VisitanteService, $stateParams) {
-              return VisitanteService.get($stateParams.visitanteId);
-            }, blocos: function () {
-              return {};
-            }
-          }, controller: 'VisitanteCtrl'
-        }
-      },
-      data: {authorizedRoles: [USER_ROLES.admin]}
-    }).state('app.visitanteAdicionar', {
+        url: '/visitantes/:visitanteId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/visitante/visitante.html', resolve: {
+              visitantes: function () {
+                return {};
+              }, visitante: function (VisitanteService, $stateParams) {
+                return VisitanteService.get($stateParams.visitanteId);
+              }, blocos: function () {
+                return {};
+              }
+            }, controller: 'VisitanteCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      }).state('app.visitanteAdicionar', {
       url: '/visitantes/adicionar/',
       views: {
         'menuContent': {
@@ -736,32 +895,6 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               }
             },
             controller: 'MoradorCtrl'
-          }
-        },
-        data: {
-          authorizedRoles: [USER_ROLES.admin]
-        }
-      })
-
-
-
-      .state('app.areaAdicionar', {
-        url: '/areas/adicionar/',
-        views: {
-          'menuContent': {
-            templateUrl: 'templates/area_adicionar.html',
-            resolve: {
-              areas: function(){
-                return {};
-              },
-              area: function(AreaService, $stateParams){
-                return {};
-              },
-              condominios: function(CondominioService){
-                return CondominioService.getLista();
-              }
-            },
-            controller: 'AreaCtrl'
           }
         },
         data: {
