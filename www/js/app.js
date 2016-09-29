@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service'])
+angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service'])
 //angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
@@ -124,7 +124,13 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 mural: function(){
                     return {};
                 },
+                condominio: function(){
+                    return {};
+                },
                 condominios: function(){
+                    return {};
+                },
+                bloco: function(){
                     return {};
                 },
                 blocos: function(){
@@ -254,7 +260,13 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 mural: function(MuralService, $stateParams){
                     return MuralService.get($stateParams.muralId);
                 },
+                condominio: function(){
+                    return {};
+                },
                 condominios: function(){
+                    return {};
+                },
+                bloco: function(){
                     return {};
                 },
                 blocos: function(){
@@ -375,9 +387,16 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 condominios: function(CondominioService){
                     return CondominioService.getLista();
                 },
+                condominio: function(){
+                    return {};
+                },
                 blocos: function(BlocoService){
                     return BlocoService.getLista();
+                },
+                bloco: function(){
+                    return {};
                 }
+
         },
         controller: 'MuralCtrl'
       }
@@ -490,8 +509,14 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 murais: function(MuralService){
                     return {};
                 },
+                condominio: function(){
+                    return {};
+                },
                 condominios: function(CondominioService){
                     return CondominioService.getLista();
+                },
+                bloco: function(){
+                    return {};
                 },
                 blocos: function(BlocoService){
                     return BlocoService.getLista();

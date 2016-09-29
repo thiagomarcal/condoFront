@@ -13,7 +13,7 @@ angular.module('mural.controller', [])
 
 	$rootScope.$on('listaMuralAlterada', function() {
     	MuralService.getLista().then(function (data) {
-    		$scope.condominios = data;
+    		$scope.murais = data;
     	});	
 	});
 

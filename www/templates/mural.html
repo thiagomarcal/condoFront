@@ -3,16 +3,16 @@
    
 		<div class="list card">
 
-		  <div class="item">
-		    <h2>{{condominio.destino.condominio.name}}</h2>
+		  <div class="item" ng-if="mural.destino.condominio">
+		    <h2>Mural Para Todo o Condominio: {{mural.destino.condominio.name}}</h2>
 		  </div>
 
-		  <div class="item">
-		    <h2>{{condominio.destino.bloco.nome}}</h2>
+		  <div class="item" ng-if="mural.destino.bloco">
+		    <h2>Mural Para Todo o Bloco: {{mural.destino.bloco.nome}}</h2>
 		  </div>
 
-		  <div class="item">
-		    <h2>{{condominio.destino.edificio.nome}}</h2>
+		  <div class="item" ng-if="mural.destino.edificio">
+		    <h2>Mural Para Todo o Edificio: {{mural.destino.edificio.nome}}</h2>
 		  </div>
 
 		</div>

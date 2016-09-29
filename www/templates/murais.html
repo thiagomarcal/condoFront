@@ -16,9 +16,28 @@
         <ion-item ng-repeat="mural in murais" href="#/app/murais/{{mural.id}}" 
                   item="item">
                 <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
-          {{mural.destino.condominio.name}}
+
+          <div ng-if="mural.destino.condominio">
+            {{mural.destino.condominio.name}}
+          </div>
+
+          <div ng-if="mural.destino.bloco">
           {{mural.destino.bloco.nome}}
-          {{mural.destino.edificio.nome}}
+
+           <span class="item-note">
+            Condominio: {{mural.destino.bloco.condominio.name}}
+          </span>
+          </div>
+
+          <div ng-if="mural.destino.edificio">
+            {{mural.destino.edificio.nome}}
+
+             <span class="item-note">
+               Bloco: {{mural.destino.edificio.bloco.nome}}
+               Condominio: {{mural.destino.edificio.bloco.condominio.name}}
+            </span>
+
+          </div> 
 
           <ion-option-button class="button-assertive"
                              ng-click="excluir(mural.id)">
