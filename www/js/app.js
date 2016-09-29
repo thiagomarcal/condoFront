@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller',
                           'condominio.service', 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller',
                           'usuario.service', 'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                          'edificio.service', 'edificio.controller'])
+                          'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -699,6 +699,51 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
           authorizedRoles: [USER_ROLES.admin]
         }
       })
+
+      .state('app.moradores', {
+        url: '/moradores',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/morador/moradores.html',
+            resolve: {
+              edificios: function (MoradorService) {
+                return MoradorService.getLista();
+              },
+              edificio: function () {
+                return {};
+                app.moradorEditar;
+              },
+              blocos: function () {
+                return {};
+              }
+            },
+            controller: 'MoradorCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.moradorEditar', {
+        url: '/moradores/editar/:moradorId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/morador/morador_editar.html',
+            resolve: {
+              edificios: function(){
+                return {};
+              },
+              edificio: function(MoradorService, $stateParams){
+                return MoradorService.get($stateParams.edificioId);
+              }
+            },
+            controller: 'MoradorCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+
 
       .state('app.areaAdicionar', {
         url: '/areas/adicionar/',
