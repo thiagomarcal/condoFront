@@ -1,0 +1,36 @@
+<ion-view view-title="Edificio">
+  <ion-content>
+
+    <div class="list card">
+
+      <div class="item">
+        <h2>{{edificio.nome}}</h2>
+      </div>
+
+      <div class="item">
+        <p>{{edificio.descricao}}</p>
+      </div>
+
+
+      <div class="item item-body">
+        <p>
+        <h2>Bloco</h2>
+        <ion-item>
+          <h2>{{edificio.bloco.nome}}</h2>
+
+        </ion-item>
+
+        <h2>Condominio</h2>
+        <ion-item>
+          <h2>{{edificio.bloco.condominio.name}}</h2>
+
+        </ion-item>
+        </p>
+      </div>
+
+
+    </div>
+
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,17 @@
+<ion-view view-title="Visitante">
+  <ion-content>
+
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Nome</span>
+        <input type="text" value="{{visitante.nome}}" ng-model="visitante.nome">
+      </label>
+
+
+    <button ng-click="enviarEdicaoDeVisitante()" class="button button-block button-positive">
+      Editar
+    </button>
+
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,41 @@
+<ion-view view-title="Apartamento">
+  <ion-content>
+
+    <div class="list card">
+
+      <div class="item">
+        <h2>{{apartamento.nome}}</h2>
+      </div>
+
+      <div class="item">
+        <p>{{apartamento.numero}}</p>
+      </div>
+
+
+      <div class="item item-body">
+        <p>
+        <h2>Edificio</h2>
+        <ion-item>
+          <h2>{{apartamento.edificio.nome}}</h2>
+
+        </ion-item>
+
+        <h2>Bloco</h2>
+        <ion-item>
+          <h2>{{apartamento.edificio.bloco.nome}}</h2>
+
+        </ion-item>
+
+        <h2>Condominio</h2>
+        <ion-item>
+          <h2>{{apartamento.edificio.bloco.condominio.name}}</h2>
+
+        </ion-item>
+        </p>
+      </div>
+
+    </div>
+
+
+  </ion-content>
+</ion-view>
