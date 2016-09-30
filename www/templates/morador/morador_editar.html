@@ -1,0 +1,31 @@
+<ion-view view-title="Morador">
+  <ion-content>
+   
+	 <div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+			Pessoa
+			</div>
+			<select ng-model="morador.pessoa" ng-options="pessoa.nome for pessoa in pessoas">
+			</select>
+		</label>
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+			Apartamento
+			</div>
+			<select ng-model="morador.apartamento" ng-options="apartamento.nome for apartamento in apartamentos">
+			</select>
+		</label>
+
+
+	</div>
+
+	<button ng-click="enviarAdicao	()" class="button button-block button-positive">
+  		Adicionar
+	</button>
+
+
+  </ion-content>
+</ion-view>

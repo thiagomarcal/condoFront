@@ -3,16 +3,17 @@
  */
 angular.module('morador.controller', [])
 
-  .controller('MoradorCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, morador, moradores, MoradorService) {
-
-
+  .controller('MoradorCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, morador, moradores, MoradorService, pessoas, PessoaService, apartamentos, ApartamentoService) {
 
     $scope.moradores = moradores;
     $scope.morador = morador;
 
+    $scope.pessoas = pessoas;
+    $scope.apartamentos = apartamentos;
+
 
     $rootScope.$on('listaMoradorAlterada', function () {
-      EdificioService.getLista().then(function (data) {
+      MoradorService.getLista().then(function (data) {
         $scope.moradores = data;
       });
     });
@@ -51,7 +52,7 @@ angular.module('morador.controller', [])
     };
 
 
-    $scope.enviarMoradorAdicao = function () {
+    $scope.enviarAdicao = function () {
       MoradorService.adicionar($scope.morador).then(function (morador) {
         var alertPopup = $ionicPopup.alert({
           title: 'CondoApp',
