@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service'])
+                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -616,7 +616,6 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               },
               visitante: function () {
                 return {};
-                app.visitanteEditar
               },
               blocos: function () {
                 return {};
@@ -691,7 +690,6 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               },
               apartamento: function () {
                 return {};
-                app.apartamentoEditar;
               },
               edificios: function () {
                 return {};
@@ -781,7 +779,6 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               },
               edificio: function () {
                 return {};
-                app.edificioEditar;
               },
               blocos: function () {
                 return {};
@@ -865,14 +862,16 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
           'menuContent': {
             templateUrl: 'templates/morador/moradores.html',
             resolve: {
-              edificios: function (MoradorService) {
+              moradores: function (MoradorService) {
                 return MoradorService.getLista();
               },
-              edificio: function () {
+              morador: function () {
                 return {};
-                app.moradorEditar;
               },
-              blocos: function () {
+              pessoas: function(){
+                return {};
+              },
+              apartamentos: function(){
                 return {};
               }
             },
@@ -881,20 +880,165 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         }, data: {authorizedRoles: [USER_ROLES.admin]}
       })
 
+      .state('app.morador', {
+        url: '/moradores/:moradorId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/morador/morador.html', resolve: {
+              moradores: function () {
+                return {};
+              },
+              morador: function (MoradorService, $stateParams) {
+                return MoradorService.get($stateParams.moradorId);
+              },
+              pessoas: function () {
+                return {};
+              },
+              apartamentos: function () {
+                return {};
+              }
+            }, controller: 'MoradorCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
       .state('app.moradorEditar', {
         url: '/moradores/editar/:moradorId',
         views: {
           'menuContent': {
             templateUrl: 'templates/morador/morador_editar.html',
             resolve: {
-              edificios: function(){
+              moradores: function(){
                 return {};
               },
-              edificio: function(MoradorService, $stateParams){
+              morador: function(MoradorService, $stateParams){
                 return MoradorService.get($stateParams.edificioId);
+              },
+              pessoas: function(PessoaService){
+                return PessoaService.getLista();
+              },
+              apartamentos: function(ApartamentoService){
+                return ApartamentoService.getLista();
               }
             },
             controller: 'MoradorCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.moradorAdicionar', {
+        url: '/morador/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/morador/morador_adicionar.html',
+            resolve: { 
+              moradores: function(){
+                return {};
+              },
+              morador: function(EdificioService, $stateParams){
+                return {};
+              },
+              pessoas: function(PessoaService){
+                return PessoaService.getLista();
+              },
+              apartamentos: function(ApartamentoService){
+                return ApartamentoService.getLista();
+              }
+            },
+            controller: 'MoradorCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+       .state('app.mensagens', {
+        url: '/mensagens',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mensagem/mensagens.html',
+            resolve: {
+              mensagens: function (MensagemService) {
+                return MensagemService.getLista();
+              },
+              mensagem: function () {
+                return {};
+              },
+              murais: function(){
+                return {};
+              }
+            },
+            controller: 'MensagemCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.mensagem', {
+        url: '/mensagens/:mensagemId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mensagem/mensagem.html', resolve: {
+              mensagens: function () {
+                return {};
+              },
+              mensagem: function (MensagemService, $stateParams) {
+                return MensagemService.get($stateParams.mensagemId);
+              },
+              murais: function () {
+                return {};
+              }
+            }, controller: 'MensagemCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.mensagemEditar', {
+        url: '/mensagens/editar/:mensagemId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mensagem/mensagem_editar.html',
+            resolve: {
+              mensagens: function(){
+                return {};
+              },
+              mensagem: function(MoradorService, $stateParams){
+                return MensagemService.get($stateParams.mensagemId);
+              },
+              murais: function () {
+                return {};
+              }
+            },
+            controller: 'MensagemCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+
+      .state('app.mensagemAdicionar', {
+        url: '/mensagem/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/mensagem/mensagem_adicionar.html',
+            resolve: { 
+              mensagens: function(){
+                return {};
+              },
+              mensagem: function(MensagemService, $stateParams){
+                return {};
+              },
+              murais: function(MuralService){
+                return MuralService.getLista();
+              }
+            },
+            controller: 'MensagemCtrl'
           }
         },
         data: {

@@ -1,0 +1,62 @@
+<ion-view view-title="Mensagem">
+  <ion-content>
+   
+	 <div class="list">
+
+		<label class="item item-input item-select">
+			<div class="input-label">
+			Tipo Mural
+			</div>
+			<select ng-model="tipoMural" ng-options="tipoMural.nome for tipoMural in tipoMurais">
+			</select>
+		</label>
+
+		<div ng-if="tipoMural.nome === 'Condominio'">
+			<label class="item item-input item-select">
+				<div class="input-label">
+				Mural Condominio
+				</div>
+				<select ng-model="mensagem.mural" ng-options="mural.destino.condominio.name for mural in murais">
+				</select>
+			</label>
+		</div>
+
+		<div ng-if="tipoMural.nome === 'Bloco'">
+			<label class="item item-input item-select">
+				<div class="input-label">
+				Mural Bloco
+				</div>
+				<select ng-model="mensagem.mural" ng-options="mural.destino.bloco.nome for mural in murais">
+				</select>
+			</label>
+		</div>
+
+		<div ng-if="tipoMural.nome === 'Edificio'">
+			<label class="item item-input item-select">
+				<div class="input-label">
+				Mural Edificio
+				</div>
+				<select ng-model="mensagem.mural" ng-options="mural.destino.edificio.nome for mural in murais">
+				</select>
+			</label>
+		</div>
+
+		<label class="item item-input">
+  			<input type='text' ng-model="mensagem.assunto" placeholder="Assunto ...">
+		</label>
+
+		
+		<label class="item item-input">
+  			<textarea ng-model="mensagem.mensagem" placeholder="Digite aqui sua mensagem ..." rows="5"></textarea>
+		</label>
+
+
+	</div>
+
+	<button ng-click="enviarAdicao	()" class="button button-block button-positive">
+  		Adicionar
+	</button>
+
+
+  </ion-content>
+</ion-view>

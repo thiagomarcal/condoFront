@@ -1,7 +1,7 @@
 <ion-view view-title="Moradores">
 
   <ion-nav-buttons side="right">
-    <a class="button button-icon icon ion-plus-circled" ng-click="adicionarMorador()"></a>
+    <a class="button button-icon icon ion-plus-circled" ng-click="adicionaMorador()"></a>
   </ion-nav-buttons>
 
   <ion-content>
@@ -9,7 +9,7 @@
 
     <ion-list>
 
-      <ion-item ng-repeat="morador in moradores" href="#/app/morador/{{morador.id}}"
+      <ion-item ng-repeat="morador in moradores" href="#/app/moradores/{{morador.id}}"
                 item="item">
         <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
         {{morador.pessoa.nome}}
