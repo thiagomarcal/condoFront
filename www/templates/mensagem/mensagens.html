@@ -1,0 +1,30 @@
+<ion-view view-title="Mensagens">
+
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-plus-circled" ng-click="adicionar()"></a>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+
+    <ion-list>
+
+      <ion-item ng-repeat="mensagem in mensagens" href="#/app/mensagens/{{mensagem.id}}"
+                item="item">
+        <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
+        {{mensagem.assunto}}
+
+         <span class="item-note">
+            {{ mensagem.dataEnvio | date : 'dd/MM/yyyy HH:mm:ss'}}
+          </span>
+
+        <ion-option-button class="button-assertive"
+                           ng-click="excluir(mensagem.id)">
+          Excluir
+        </ion-option-button>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>
