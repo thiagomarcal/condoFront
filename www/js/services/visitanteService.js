@@ -72,7 +72,7 @@ angular.module('visitante.service', [])
 
     var deferred = $q.defer();
 
-    $http.post('http://localhost:8080/api/visitante/', visitante)
+    $http.post('http://localhost:8080/api/visitante/salvar', visitante)
       .success(function(data) {
         deferred.resolve(data);
       })
