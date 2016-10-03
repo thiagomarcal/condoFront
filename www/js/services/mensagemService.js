@@ -3,6 +3,8 @@ angular.module('mensagem.service', [])
 
 .service("MensagemService", function($http, $q) {
 
+    var mensagens= [];
+
     function getLista() {
 
         var deferred = $q.defer();
@@ -78,11 +80,21 @@ angular.module('mensagem.service', [])
          return deferred.promise;
     }
 
+    function getNovasMensagens() {
+        return mensagens;
+    }
+
+    function setNovasMensagens(novasMensagem) {
+        mensagens = novasMensagem;
+    }
+
     return {
         getLista: getLista,
         get: get,
         put: put,
         deletar: deletar,
         adicionar: adicionar,
+        getNovasMensagens: getNovasMensagens,
+        setNovasMensagens: setNovasMensagens,
     };
 });

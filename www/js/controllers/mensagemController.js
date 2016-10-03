@@ -1,8 +1,11 @@
 angular.module('mensagem.controller', [])
 
-.controller('MensagemCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, mensagem, mensagens, MensagemService, murais, MuralService) {
+.controller('MensagemCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, mensagem, mensagens, MensagemService, murais, MuralService, SocketService) {
 
 	$scope.mensagens = mensagens;
+
+	verificaNovasMensagens(MensagemService.getNovasMensagens());
+
 	$scope.mensagem = mensagem;
 
 	$scope.murais = murais;
@@ -14,6 +17,8 @@ angular.module('mensagem.controller', [])
     		$scope.mensagens = data;
     	});	
 	});
+
+
 
 	$scope.adicionar = function() {
 		$state.go('app.mensagemAdicionar');
@@ -37,8 +42,12 @@ angular.module('mensagem.controller', [])
 
 	$scope.enviarAdicao = function () {
 		$scope.mensagem.dataEnvio = new Date();
+		$scope.mensagem.lida = false;
 
 		MensagemService.adicionar($scope.mensagem).then(function (mensagem) {
+
+			SocketService.send(mensagem);
+
 			var alertPopup = $ionicPopup.alert({
 				title: 'CondoApp',
 				template: 'Mensagem Criada com sucesso!'
@@ -47,6 +56,24 @@ angular.module('mensagem.controller', [])
 			$state.go('app.mensagens', {}, {
 				reload: true});
 		});
+	};
+
+	function verificaNovasMensagens(novasMensagens) {
+		if (novasMensagens.length > 0) {
+			angular.forEach($scope.mensagens, function(mensagem) {
+				angular.forEach(novasMensagens, function(novaMensagem) {
+					if (mensagem.id === novaMensagem.id) {
+						mensagem.lida = false;
+					}
+				});
+			});
+		}
+	}
+
+	$scope.detalhe = function (mensagem) {
+		mensagem.lida = true;
+		$state.go('app.mensagem', {mensagemId: mensagem.id}, {
+				reload: true});
 	};
 
 

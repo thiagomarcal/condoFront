@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service'])
+                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
