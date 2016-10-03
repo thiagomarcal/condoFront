@@ -1,39 +1,30 @@
-<ion-view view-title="Condominio">
+<ion-view view-title="Visitante">
   <ion-content>
 
     <div class="list card">
 
       <div class="item">
         <h2>{{visitante.nome}}</h2>
-
       </div>
 
-      <!--<div class="item item-body">
+      <div class="item item-body">
         <p>
-        <h2>Bloco</h2>
-        <ion-item ng-repeat="area in condominio.areas">
-          <h2>{{area.nome}}</h2>
-          <p>{{area.descricao}}</p>
+        <h2>Apartamento</h2>
+        <ion-item>
+          <h2>{{visitante.apartamento.nome}}</h2>
         </ion-item>
         </p>
-        <p>
-        <h2>Blocos</h2>
-        <ion-item ng-repeat="bloco in condominio.blocos">
-          <h2>{{bloco.nome}}</h2>
-          <p>Quantidade de Edificios: {{bloco.edificios.length}}</p>
 
-          <ion-item ng-repeat="edificio in bloco.edificios">
-            <h2>{{edificio.nome}}</h2>
-            <p>Quantidade de Apartamentos: {{edificio.apartamentos.length}}</p>
-          </ion-item>
 
+
+        <ion-item>
+          <ion-label>Data visita</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY">{{visitante.dataVisita}}</ion-datetime>
         </ion-item>
-        </p>
-        <p>
-          <a href="#" class="subdued">1 Like</a>
-          <a href="#" class="subdued">5 Comments</a>
-        </p>
-      </div>-->
+
+
+
+      </div>
 
     </div>
 

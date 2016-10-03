@@ -637,10 +637,15 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
             resolve: {
               visitantes: function () {
                 return {};
-              }, visitante: function (VisitanteService, $stateParams) {
+              },
+              visitante: function (VisitanteService, $stateParams) {
                 return VisitanteService.get($stateParams.visitanteId);
-              }, blocos: function () {
-                return {};
+              },
+              blocos: function (BlocoService) {
+                return BlocoService.getLista();
+              },
+              apartamentos: function(ApartamentoService) {
+                return ApartamentoService.getLista();
               }
             },
             controller: 'VisitanteCtrl'
@@ -1037,7 +1042,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         views: {
           'menuContent': {
             templateUrl: 'templates/mensagem/mensagem_adicionar.html',
-            resolve: { 
+            resolve: {
               mensagens: function(){
                 return {};
               },
