@@ -1,0 +1,15 @@
+{
+  "name": "sockjs-client-bower",
+  "homepage": "https://github.com/pennyfx/sockjs-client",
+  "version": "0.3.4",
+  "_release": "0.3.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.4",
+    "commit": "72e93821214021dfe54094814f77fe24454f0860"
+  },
+  "_source": "https://github.com/pennyfx/sockjs-client.git",
+  "_target": "^0.3.4",
+  "_originalSource": "sockjs-client-bower",
+  "_direct": true
+}
