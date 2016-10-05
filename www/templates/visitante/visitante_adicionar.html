@@ -7,17 +7,8 @@
         <input type="text" value="{{visitante.nome}}" ng-model="visitante.nome">
       </label>
 
-      <!--<label class = "item item-input item-select item-dark">
-        <div class = "input-label">
-          Bloco
-        </div>
 
-        <select>
-          <option>Bloco 1</option>
-          <option selected>Bloco 2</option>
-          <option>Bloco 3</option>
-        </select>
-      </label>-->
+
 
       <label class="item item-input item-select">
         <div class="input-label">
@@ -26,6 +17,15 @@
         <select ng-model="visitante.bloco" ng-options="bloco.nome for bloco in blocos">
         </select>
       </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Apartamento
+        </div>
+        <select ng-model="visitante.apartamento" ng-options="apartamento.nome for apartamento in apartamentos">
+        </select>
+      </label>
+
 
 
     </div>

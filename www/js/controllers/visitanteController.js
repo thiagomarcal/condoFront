@@ -3,10 +3,12 @@
  */
 angular.module('visitante.controller', [])
 
-.controller('VisitanteCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, visitante, visitantes,VisitanteService, blocos, BlocoService) {
+.controller('VisitanteCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, visitante, visitantes,VisitanteService, blocos, BlocoService, apartamento, apartamentos) {
 
   $scope.visitantes = visitantes;
   $scope.visitante = visitante;
+  $scope.apartamento = apartamento;
+  $scope.apartamentos = apartamentos;
   $scope.blocos = blocos;
 
   $rootScope.$on('listaVisitanteAlterada', function() {

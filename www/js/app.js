@@ -619,7 +619,14 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               },
               blocos: function () {
                 return {};
+              },
+              apartamento : function () {
+                return {};
+              },
+              apartamentos: function() {
+                return {};s
               }
+
             },
             controller: 'VisitanteCtrl'
           }
@@ -633,10 +640,18 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
             resolve: {
               visitantes: function () {
                 return {};
-              }, visitante: function (VisitanteService, $stateParams) {
+              },
+              visitante: function (VisitanteService, $stateParams) {
                 return VisitanteService.get($stateParams.visitanteId);
-              }, blocos: function () {
+              },
+              blocos: function (BlocoService) {
+                return BlocoService.getLista();
+              },
+              apartamento : function () {
                 return {};
+              },
+              apartamentos: function (ApartamentoService) {
+                return ApartamentoService.getLista();
               }
             },
             controller: 'VisitanteCtrl'
@@ -655,12 +670,20 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 return VisitanteService.get($stateParams.visitanteId);
               }, blocos: function () {
                 return {};
+              },
+              apartamento : function () {
+                return {};
+              },
+              apartamentos: function() {
+                return {};s
               }
             }, controller: 'VisitanteCtrl'
           }
         },
         data: {authorizedRoles: [USER_ROLES.admin]}
-      }).state('app.visitanteAdicionar', {
+      })
+
+      .state('app.visitanteAdicionar', {
       url: '/visitantes/adicionar/',
       views: {
         'menuContent': {
@@ -672,6 +695,12 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               return {};
             }, blocos: function (BlocoService) {
               return BlocoService.getLista();
+            },
+            apartamento : function () {
+              return {};
+            },
+            apartamentos: function (ApartamentoService) {
+              return ApartamentoService.getLista();
             }
           },
           controller: 'VisitanteCtrl'
@@ -935,7 +964,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         views: {
           'menuContent': {
             templateUrl: 'templates/morador/morador_adicionar.html',
-            resolve: { 
+            resolve: {
               moradores: function(){
                 return {};
               },
@@ -1027,7 +1056,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
         views: {
           'menuContent': {
             templateUrl: 'templates/mensagem/mensagem_adicionar.html',
-            resolve: { 
+            resolve: {
               mensagens: function(){
                 return {};
               },
