@@ -7,12 +7,11 @@
         <input type="text" value="{{visitante.nome}}" ng-model="visitante.nome">
       </label>
 
-
       <label class="item item-input item-select">
         <div class="input-label">
-          Bloco
+          Apartamento
         </div>
-        <select ng-model="visitante.bloco" ng-options="bloco.nome for bloco in blocos">
+        <select ng-model="visitante.apartamento" ng-options="apartamento.nome for apartamento in apartamentos">
         </select>
       </label>
 
@@ -23,11 +22,7 @@
         <select ng-model="visitante.apartamento" ng-options="apartamento.nome for apartamento in apartamentos">
         </select>
       </label>
-
-
-
-    </div>
-
+  s </div>
 
 
     <button ng-click="novoVisitante()" class="button button-block button-positive">

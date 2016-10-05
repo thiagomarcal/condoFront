@@ -1,7 +1,9 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
+.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS, SocketService, MensagemService) {
   $scope.username = AuthService.username();
+
+  $scope.messages = [];
  
   $scope.$on(AUTH_EVENTS.notAuthorized, function(event) {
     var alertPopup = $ionicPopup.alert({
@@ -26,6 +28,16 @@ angular.module('starter.controllers', [])
   $scope.logout = function () {
     AuthService.logout();
     $state.go('login');
+  };
+
+  SocketService.receive().then(null, null, function(message) {
+    $scope.messages.push(message);
+  });
+
+  $scope.mensagens = function() {
+    MensagemService.setNovasMensagens($scope.messages);
+    $scope.messages = [];   
+    $state.go('app.mensagens');
   };
 
 })

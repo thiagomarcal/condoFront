@@ -7,7 +7,7 @@
 angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service'])
+                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -620,6 +620,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               blocos: function () {
                 return {};
               },
+              apartamento : function () {
+                return {};
+              },
               apartamentos: function() {
                 return {};s
               }
@@ -644,7 +647,10 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               blocos: function (BlocoService) {
                 return BlocoService.getLista();
               },
-              apartamentos: function(ApartamentoService) {
+              apartamento : function () {
+                return {};
+              },
+              apartamentos: function (ApartamentoService) {
                 return ApartamentoService.getLista();
               }
             },
@@ -665,6 +671,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
               }, blocos: function () {
                 return {};
               },
+              apartamento : function () {
+                return {};
+              },
               apartamentos: function() {
                 return {};s
               }
@@ -672,7 +681,9 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
           }
         },
         data: {authorizedRoles: [USER_ROLES.admin]}
-      }).state('app.visitanteAdicionar', {
+      })
+
+      .state('app.visitanteAdicionar', {
       url: '/visitantes/adicionar/',
       views: {
         'menuContent': {
@@ -685,7 +696,10 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
             }, blocos: function (BlocoService) {
               return BlocoService.getLista();
             },
-            apartamentos: function(ApartamentoService) {
+            apartamento : function () {
+              return {};
+            },
+            apartamentos: function (ApartamentoService) {
               return ApartamentoService.getLista();
             }
           },
