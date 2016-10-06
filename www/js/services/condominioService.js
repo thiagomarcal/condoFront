@@ -1,13 +1,13 @@
 angular.module('condominio.service', [])
 
 
-.service("CondominioService", function($http, $q) {
+.service("CondominioService", function($http, $q, SERVIDOR) {
 
     function getLista() {
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/condominios')
+        $http.get('http://'+SERVIDOR.endereco+'/api/condominios')
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -22,7 +22,7 @@ angular.module('condominio.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/condominio/'+condominioId)
+        $http.get('http://'+SERVIDOR.endereco+'/api/condominio/'+condominioId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -37,7 +37,7 @@ angular.module('condominio.service', [])
 
         var deferred = $q.defer();
 
-        $http.put('http://localhost:8080/api/condominio/', condominio)
+        $http.put('http://'+SERVIDOR.endereco+'/api/condominio/', condominio)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -52,7 +52,7 @@ angular.module('condominio.service', [])
 
         var deferred = $q.defer();
 
-        $http.delete('http://localhost:8080/api/condominio/'+ condominioId)
+        $http.delete('http://'+SERVIDOR.endereco+'/api/condominio/'+ condominioId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -67,7 +67,7 @@ angular.module('condominio.service', [])
 
         var deferred = $q.defer();
 
-        $http.post('http://localhost:8080/api/condominio/', condominio)
+        $http.post('http://'+SERVIDOR.endereco+'/api/condominio/', condominio)
          .success(function(data) {
            deferred.resolve(data);
          })

@@ -1,7 +1,7 @@
 angular.module('auth.services', [])
 
 
-.service("AuthService", function($http, $q, USER_ROLES, $state) {
+.service("AuthService", function($http, $q, USER_ROLES, $state, SERVIDOR) {
     var LOCAL_TOKEN_KEY = 'yourTokenKey';
     var LOCAL_USERNAME = 'yourUsername';
     var username = '';
@@ -48,7 +48,7 @@ angular.module('auth.services', [])
     var obterRole = function() {
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/user/roles')
+        $http.get('http://'+SERVIDOR.endereco+'/api/user/roles')
          .success(function(user) {
             role = user.roles;
             deferred.resolve(); 
@@ -66,7 +66,7 @@ angular.module('auth.services', [])
 
         var deferred = $q.defer();
 
-        $http.post('http://localhost:8080/api/auth', authenticationRequest)
+        $http.post('http://'+SERVIDOR.endereco+'/api/auth', authenticationRequest)
          .success(function(data) {
            storeUserCredentials(data.token, name);
            deferred.resolve('Login success.');

@@ -10,4 +10,11 @@ angular.module('starter')
   root: 'ROOT',
   user: 'USER',
   public: 'PUBLIC'
+})
+
+.constant('SERVIDOR', {
+  endereco: 'localhost:8080'
+  //endereco: '192.168.1.133:8080' --endereco da maquina para rodar no mobile
 });
+
+

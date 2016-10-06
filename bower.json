@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "sockjs": "^0.3.4",
-    "stomp-websocket": "^2.3.4"
+    "stomp-websocket": "^2.3.4",
+    "ngCordova": "^0.1.27-alpha"
   }
 }

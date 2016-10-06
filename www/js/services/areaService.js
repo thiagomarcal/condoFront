@@ -1,13 +1,13 @@
 angular.module('area.service', [])
 
 
-.service("AreaService", function($http, $q) {
+.service("AreaService", function($http, $q, SERVIDOR) {
 
     function getLista() {
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/areas')
+        $http.get('http://'+SERVIDOR.endereco+'/api/areas')
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -22,7 +22,7 @@ angular.module('area.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/area/'+areaId)
+        $http.get('http://'+SERVIDOR.endereco+'/api/area/'+areaId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -37,7 +37,7 @@ angular.module('area.service', [])
 
         var deferred = $q.defer();
 
-        $http.put('http://localhost:8080/api/area/', area)
+        $http.put('http://'+SERVIDOR.endereco+'/api/area/', area)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -52,7 +52,7 @@ angular.module('area.service', [])
 
         var deferred = $q.defer();
 
-        $http.delete('http://localhost:8080/api/area/'+ areaId)
+        $http.delete('http://'+SERVIDOR.endereco+'/api/area/'+ areaId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -67,7 +67,7 @@ angular.module('area.service', [])
 
         var deferred = $q.defer();
 
-        $http.post('http://localhost:8080/api/area/', area)
+        $http.post('http://'+SERVIDOR.endereco+'/api/area/', area)
          .success(function(data) {
            deferred.resolve(data);
          })

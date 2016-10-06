@@ -1,7 +1,7 @@
 angular.module('mensagem.service', [])
 
 
-.service("MensagemService", function($http, $q) {
+.service("MensagemService", function($http, $q, SERVIDOR) {
 
     var mensagens= [];
 
@@ -9,7 +9,7 @@ angular.module('mensagem.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/mensagens')
+        $http.get('http://'+SERVIDOR.endereco+'/api/mensagens')
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -24,7 +24,7 @@ angular.module('mensagem.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/mensagem/'+mensagemId)
+        $http.get('http://'+SERVIDOR.endereco+'/api/mensagem/'+mensagemId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -39,7 +39,7 @@ angular.module('mensagem.service', [])
 
         var deferred = $q.defer();
 
-        $http.put('http://localhost:8080/api/mensagem/', mensagem)
+        $http.put('http://'+SERVIDOR.endereco+'/api/mensagem/', mensagem)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -54,7 +54,7 @@ angular.module('mensagem.service', [])
 
         var deferred = $q.defer();
 
-        $http.delete('http://localhost:8080/api/mensagem/'+ mensagemId)
+        $http.delete('http://'+SERVIDOR.endereco+'/api/mensagem/'+ mensagemId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -69,7 +69,7 @@ angular.module('mensagem.service', [])
 
         var deferred = $q.defer();
 
-        $http.post('http://localhost:8080/api/mensagem/', mensagem)
+        $http.post('http://'+SERVIDOR.endereco+'/api/mensagem/', mensagem)
          .success(function(data) {
            deferred.resolve(data);
          })
