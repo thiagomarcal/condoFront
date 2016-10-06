@@ -4,14 +4,14 @@
 angular.module('edificio.service', [])
 
 
-  .service("EdificioService", function($http, $q) {
+  .service("EdificioService", function($http, $q, SERVIDOR) {
 
 
     function getLista() {
 
       var deferred = $q.defer();
 
-      $http.get('http://localhost:8080/api/edificios')
+      $http.get('http://'+SERVIDOR.endereco+'/api/edificios')
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -28,7 +28,7 @@ angular.module('edificio.service', [])
 
       var deferred = $q.defer();
 
-      $http.get('http://localhost:8080/api/edificio/' + edificioId)
+      $http.get('http://'+SERVIDOR.endereco+'/api/edificio/' + edificioId)
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -44,7 +44,7 @@ angular.module('edificio.service', [])
 
       var deferred = $q.defer();
 
-      $http.put('http://localhost:8080/api/edificio/', edificio)
+      $http.put('http://'+SERVIDOR.endereco+'/api/edificio/', edificio)
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -59,7 +59,7 @@ angular.module('edificio.service', [])
 
       var deferred = $q.defer();
 
-      $http.delete('http://localhost:8080/api/edificio/'+ edificioId)
+      $http.delete('http://'+SERVIDOR.endereco+'/api/edificio/'+ edificioId)
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -74,7 +74,7 @@ angular.module('edificio.service', [])
 
       var deferred = $q.defer();
 
-      $http.post('http://localhost:8080/api/edificio/', edificio)
+      $http.post('http://'+SERVIDOR.endereco+'/api/edificio/', edificio)
         .success(function(data) {
           deferred.resolve(data);
         })

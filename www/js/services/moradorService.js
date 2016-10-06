@@ -4,7 +4,7 @@
 angular.module('morador.service', [])
 
 
-  .service("MoradorService", function($http, $q) {
+  .service("MoradorService", function($http, $q, SERVIDOR) {
 
 
 
@@ -12,7 +12,7 @@ angular.module('morador.service', [])
 
       var deferred = $q.defer();
 
-      $http.get('http://localhost:8080/api/moradores')
+      $http.get('http://'+SERVIDOR.endereco+'/api/moradores')
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -29,7 +29,7 @@ angular.module('morador.service', [])
 
       var deferred = $q.defer();
 
-      $http.get('http://localhost:8080/api/morador/' + moradorId)
+      $http.get('http://'+SERVIDOR.endereco+'/api/morador/' + moradorId)
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -45,7 +45,7 @@ angular.module('morador.service', [])
 
       var deferred = $q.defer();
 
-      $http.put('http://localhost:8080/api/morador/', morador)
+      $http.put('http://'+SERVIDOR.endereco+'/api/morador/', morador)
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -61,7 +61,7 @@ angular.module('morador.service', [])
 
       var deferred = $q.defer();
 
-      $http.delete('http://localhost:8080/api/morador/'+ moradorId)
+      $http.delete('http://'+SERVIDOR.endereco+'/api/morador/'+ moradorId)
         .success(function(data) {
           deferred.resolve(data);
         })
@@ -77,7 +77,7 @@ angular.module('morador.service', [])
 
       var deferred = $q.defer();
 
-      $http.post('http://localhost:8080/api/morador/', morador)
+      $http.post('http://'+SERVIDOR.endereco+'/api/morador/', morador)
         .success(function(data) {
           deferred.resolve(data);
         })

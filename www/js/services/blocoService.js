@@ -1,13 +1,13 @@
 angular.module('bloco.service', [])
 
 
-.service("BlocoService", function($http, $q) {
+.service("BlocoService", function($http, $q, SERVIDOR) {
 
     function getLista() {
 
         var deferred = $q.defer();
 
-      $http.get('http://localhost:8080/api/blocos')
+      $http.get('http://'+SERVIDOR.endereco+'/api/blocos')
         .success(function (data) {
           deferred.resolve(data);
         })
@@ -22,7 +22,7 @@ angular.module('bloco.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/bloco/'+blocoId)
+        $http.get('http://'+SERVIDOR.endereco+'/api/bloco/'+blocoId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -37,7 +37,7 @@ angular.module('bloco.service', [])
 
         var deferred = $q.defer();
 
-        $http.put('http://localhost:8080/api/bloco/', bloco)
+        $http.put('http://'+SERVIDOR.endereco+'/api/bloco/', bloco)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -52,7 +52,7 @@ angular.module('bloco.service', [])
 
         var deferred = $q.defer();
 
-        $http.delete('http://localhost:8080/api/bloco/'+ blocoId)
+        $http.delete('http://'+SERVIDOR.endereco+'/api/bloco/'+ blocoId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -67,7 +67,7 @@ angular.module('bloco.service', [])
 
         var deferred = $q.defer();
 
-        $http.post('http://localhost:8080/api/bloco/', bloco)
+        $http.post('http://'+SERVIDOR.endereco+'/api/bloco/', bloco)
          .success(function(data) {
            deferred.resolve(data);
          })
