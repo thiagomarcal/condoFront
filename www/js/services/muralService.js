@@ -1,13 +1,13 @@
 angular.module('mural.service', [])
 
 
-.service("MuralService", function($http, $q) {
+.service("MuralService", function($http, $q, SERVIDOR) {
 
     function getLista() {
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/murais')
+        $http.get('http://'+SERVIDOR.endereco+'/api/murais')
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -22,7 +22,7 @@ angular.module('mural.service', [])
 
         var deferred = $q.defer();
 
-        $http.get('http://localhost:8080/api/mural/'+muralId)
+        $http.get('http://'+SERVIDOR.endereco+'/api/mural/'+muralId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -37,7 +37,7 @@ angular.module('mural.service', [])
 
         var deferred = $q.defer();
 
-        $http.put('http://localhost:8080/api/mural/', mural)
+        $http.put('http://'+SERVIDOR.endereco+'/api/mural/', mural)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -52,7 +52,7 @@ angular.module('mural.service', [])
 
         var deferred = $q.defer();
 
-        $http.delete('http://localhost:8080/api/mural/'+ muralId)
+        $http.delete('http://'+SERVIDOR.endereco+'/api/mural/'+ muralId)
          .success(function(data) {
            deferred.resolve(data);
          })
@@ -67,7 +67,7 @@ angular.module('mural.service', [])
 
         var deferred = $q.defer();
 
-        $http.post('http://localhost:8080/api/mural/', mural)
+        $http.post('http://'+SERVIDOR.endereco+'/api/mural/', mural)
          .success(function(data) {
            deferred.resolve(data);
          })

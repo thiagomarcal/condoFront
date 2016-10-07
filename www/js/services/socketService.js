@@ -1,7 +1,7 @@
 angular.module('socket.service', [])
 
 
-.service("SocketService", function($http, $q) {
+.service("SocketService", function($http, $q, SERVIDOR) {
 
     var service = {};
     var listener = $q.defer();
@@ -11,7 +11,7 @@ angular.module('socket.service', [])
     };
 
     service.RECONNECT_TIMEOUT = 30000;
-    service.SOCKET_URL = "http://localhost:8080/api/socket";
+    service.SOCKET_URL = 'http://'+SERVIDOR.endereco+'/api/socket';
     service.CHAT_TOPIC = "/topic/message";
     service.CHAT_BROKER = "/app/message";
 

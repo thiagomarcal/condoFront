@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS, SocketService, MensagemService) {
+.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS, SocketService, MensagemService, $ionicPlatform, $cordovaLocalNotification) {
   $scope.username = AuthService.username();
 
   $scope.messages = [];
@@ -31,6 +31,18 @@ angular.module('starter.controllers', [])
   };
 
   SocketService.receive().then(null, null, function(message) {
+    
+    $ionicPlatform.ready(function () {
+            $cordovaLocalNotification.schedule({
+            id: 1,
+            text: message.mensagem,
+            title: message.assunto
+          }).then(function () {
+            $state.go('app.mensagem', {mensagemId: message.id}, {
+              reload: true});
+          });
+    });
+
     $scope.messages.push(message);
   });
 

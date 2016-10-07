@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
                   'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service',
@@ -13,6 +13,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
+
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -625,7 +626,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 return {};
               },
               apartamentos: function() {
-                return {};s
+                return {};
               }
 
             },
@@ -676,7 +677,7 @@ angular.module('starter', ['ionic','starter.controllers', 'login.controller', 'a
                 return {};
               },
               apartamentos: function() {
-                return {};s
+                return {};
               }
             }, controller: 'VisitanteCtrl'
           }
