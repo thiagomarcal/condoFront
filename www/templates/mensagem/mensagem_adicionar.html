@@ -50,10 +50,16 @@
   			<textarea ng-model="mensagem.mensagem" placeholder="Digite aqui sua mensagem ..." rows="5"></textarea>
 		</label>
 
+		<img id="myImage" style="width:100%; height: auto;">
+
+		<button ng-click="postarImagem(mensagem)" class="button button-block button-positive">
+  			Imagem
+		</button>
+
 
 	</div>
 
-	<button ng-click="enviarAdicao	()" class="button button-block button-positive">
+	<button ng-click="enviarAdicao()" class="button button-block button-positive">
   		Adicionar
 	</button>
 

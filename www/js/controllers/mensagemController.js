@@ -1,12 +1,22 @@
 angular.module('mensagem.controller', [])
 
-.controller('MensagemCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, mensagem, mensagens, MensagemService, murais, MuralService, SocketService) {
+.controller('MensagemCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, mensagem, mensagens, MensagemService, murais, MuralService, SocketService, $ionicPlatform, $cordovaCamera, $cordovaImagePicker) {
+
+
+
 
 	$scope.mensagens = mensagens;
 
 	verificaNovasMensagens(MensagemService.getNovasMensagens());
 
 	$scope.mensagem = mensagem;
+
+	if (mensagem !== null) {
+		var image = document.getElementById('myImageMessage');
+		if (image !== null) {
+			image.src = "data:image/jpeg;base64," + mensagem.picture;
+		}
+	}
 
 	$scope.murais = murais;
 
@@ -17,8 +27,6 @@ angular.module('mensagem.controller', [])
     		$scope.mensagens = data;
     	});	
 	});
-
-
 
 	$scope.adicionar = function() {
 		$state.go('app.mensagemAdicionar');
@@ -76,5 +84,85 @@ angular.module('mensagem.controller', [])
 				reload: true});
 	};
 
+	$scope.postarImagem = function(mensagem) {
+
+		var options = {
+	        maximumImagesCount: 1, // Max number of selected images, I'm using only one for this example
+	        width: 800,
+	        height: 800,
+	        quality: 80            // Higher is better
+    	};
+
+		$ionicPlatform.ready(function () {
+
+
+			 var options = {
+		      quality: 50,
+		      destinationType: Camera.DestinationType.DATA_URL,
+		      sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+		      allowEdit: true,
+		      encodingType: Camera.EncodingType.JPEG,
+		      targetWidth: 100,
+		      targetHeight: 100,
+		      saveToPhotoAlbum: false
+		    };
+
+		    $cordovaCamera.getPicture(options).then(function(imageData) {
+		    	var image = document.getElementById('myImage');
+				image.src = "data:image/jpeg;base64," + imageData;
+		      	mensagem.picture = imageData;
+
+		    }, function(err) {
+		      // error
+		    });
+
+
+		});
+
+	};
+
+
+	function dataURItoBlob(dataURI, callback) {
+	    // convert base64 to raw binary data held in a string
+	    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+	    var byteString = atob(dataURI.split(',')[1]);
+	 
+	    // separate out the mime component
+	    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+	 
+	    // write the bytes of the string to an ArrayBuffer
+	    var ab = new ArrayBuffer(byteString.length);
+	    var ia = new Uint8Array(ab);
+	    for (var i = 0; i < byteString.length; i++) {
+	        ia[i] = byteString.charCodeAt(i);
+	    }
+	 
+	    // write the ArrayBuffer to a blob, and you're done
+	    var bb = new BlobBuilder();
+	    bb.append(ab);
+	    return bb.getBlob(mimeString);
+	}
+
+	function base64toBlob(base64Data, contentType) {
+		  contentType = contentType || '';
+		  var sliceSize = 1024;
+		  var byteCharacters = atob(base64Data.split(',')[1]);
+		  var bytesLength = byteCharacters.length;
+		  var slicesCount = Math.ceil(bytesLength / sliceSize);
+		  var byteArrays = new Array(slicesCount);
+
+		for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+		    var begin = sliceIndex * sliceSize;
+		    var end = Math.min(begin + sliceSize, bytesLength);
+
+		    var bytes = new Array(end - begin);
+		    for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+		        bytes[i] = byteCharacters[offset].charCodeAt(0);
+		    }
+		    byteArrays[sliceIndex] = new Uint8Array(bytes);
+		}
+		return new Blob(byteArrays, { type: contentType });
+		//return byteArrays[0];
+		}
 
 });
