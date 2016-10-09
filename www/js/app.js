@@ -7,7 +7,8 @@
 angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service'])
+                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service',
+                   'veiculo.service', 'veiculo.controller'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -1074,7 +1075,102 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.c
         data: {
           authorizedRoles: [USER_ROLES.admin]
         }
-      });
+      })
+
+      .state('app.veiculos', {
+        url: '/veiculos',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/veiculo/veiculos.html',
+            resolve: {
+              veiculos: function (VeiculoService) {
+                return VeiculoService.getLista();
+              },
+              veiculo: function () {
+                return {};
+              },
+              morador: function () {
+                return {};
+              },
+              moradores: function () {
+                return {};
+              }
+            },
+            controller: 'VeiculoCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+        .state('app.veiculoEditar', {
+          url: '/veiculo/editar/:veiculoId',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/veiculo/veiculo_editar.html',
+              resolve: {
+                veiculos: function () {
+                  return {};
+                },
+                veiculo: function (VeiculoService, $stateParams) {
+                  return VeiculoService.get($stateParams.veiculoId);
+                },
+                morador: function () {
+                  return {};
+                },
+                moradores: function (MoradorService) {
+                  return MoradorService.getLista();
+                }
+              },
+              controller: 'VeiculoCtrl'
+            }
+          },
+          data: {authorizedRoles: [USER_ROLES.admin]}
+        })
+        .state('app.veiculo', {
+          url: '/veiculo/:veiculoId',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/veiculo/veiculo.html', resolve: {
+                veiculos: function () {
+                  return {};
+                },
+                veiculo: function (VeiculoService, $stateParams) {
+                  return VeiculoService.get($stateParams.veiculoId);
+                },
+                morador: function () {
+                  return {};
+                },
+                moradores: function () {
+                  return {};
+                }
+              }, controller: 'VeiculoCtrl'
+            }
+          },
+          data: {authorizedRoles: [USER_ROLES.admin]}
+        })
+
+        .state('app.veiculoAdicionar', {
+          url: '/veiculo/adicionar/',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/veiculo/veiculo_adicionar.html',
+              resolve: {
+                veiculos: function () {
+                  return {};
+                },
+                veiculo: function (VeiculoService, $stateParams) {
+                  return {};
+                },
+                morador: function () {
+                  return {};
+                },
+                moradores: function (MoradorService) {
+                  return MoradorService.getLista();
+                }
+              },
+              controller: 'VeiculoCtrl'
+            }
+          },
+          data: {authorizedRoles: [USER_ROLES.admin]}
+        });
 
 
     $urlRouterProvider.otherwise(function ($injector, $location) {

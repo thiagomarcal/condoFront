@@ -19,7 +19,8 @@
 
         <ion-item>
           <ion-label>Data visita</ion-label>
-          <ion-datetime displayFormat="MM/DD/YYYY">{{visitante.dataVisita}}</ion-datetime>
+          <ion-datetime>{{ visitante.dataVisita | date : 'dd/MM/yyyy HH:mm:ss'}}
+        </ion-datetime>
         </ion-item>
 
 

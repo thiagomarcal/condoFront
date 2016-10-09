@@ -1,0 +1,56 @@
+<ion-view view-title="Veiculo">
+  <ion-content>
+
+    <div class="list">
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Marca</span>
+        <input type="text" value="{{veiculo.marca}}" ng-model="veiculo.marca">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Modelo</span>
+        <input type="text" value="{{veiculo.modelo}}" ng-model="veiculo.modelo">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Placa</span>
+        <input type="text" value="{{veiculo.placa}}" ng-model="veiculo.placa">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Renavan</span>
+        <input type="text" value="{{veiculo.renavan}}" ng-model="veiculo.renavan">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Ano</span>
+        <input type="text" value="{{veiculo.ano}}" ng-model="veiculo.ano">
+      </label>
+
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Cor</span>
+        <input type="text" value="{{veiculo.cor}}" ng-model="veiculo.cor">
+      </label>
+
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Morador
+        </div>
+        <select ng-model="veiculo.morador" ng-options="morador.pessoa.nome for morador in moradores">
+          {{veiculo.morador.pessoa.nome}}
+        </select>
+      </label>
+
+
+
+    </div>
+
+
+    <button ng-click="enviarEdicaoDeVeiculo()" class="button button-block button-positive">
+      Editar
+    </button>
+
+
+  </ion-content>
+</ion-view>
