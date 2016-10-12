@@ -1,0 +1,33 @@
+<ion-view view-title="Reserva">
+  <ion-content>
+   
+	 <div class="list">
+
+			<label class="item item-input item-select">
+				<div class="input-label">
+				Area
+				</div>
+				<select ng-model="reserva.area" ng-options="area.nome for area in areas">
+				</select>
+			</label>
+
+		<label class="item item-input">
+  			<span class="input-label">Data Início</span>
+  			<input type="datetime-local" ng-model="reserva.dataInicio">
+		</label>
+		
+		<label class="item item-input">
+  			<span class="input-label">Data Fim</span>
+  			<input type="datetime-local" ng-model="reserva.dataFim">
+		</label>
+
+
+	</div>
+
+	<button ng-click="enviarAdicao()" class="button button-block button-positive">
+  		Adicionar
+	</button>
+
+
+  </ion-content>
+</ion-view>
