@@ -4,11 +4,11 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
+angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.controllers', 'login.controller', 'auth.services', 'interceptor.factory', 'condominio.controller', 'condominio.service',
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
-                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service',
-                   'veiculo.service', 'veiculo.controller'])
+                  'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service', 'reservasocket.service',
+                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -1170,7 +1170,72 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.c
             }
           },
           data: {authorizedRoles: [USER_ROLES.admin]}
-        });
+        })
+
+        .state('app.reservas', {
+        url: '/reservas',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reserva/reservas.html',
+            resolve: {
+              reservas: function (ReservaService) {
+                return ReservaService.getLista();
+              },
+              reserva: function () {
+                return {};
+              },
+              areas: function(){
+                return {};
+              }
+            },
+            controller: 'ReservaCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.reserva', {
+        url: '/reservas/:reservaId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reserva/reserva.html', resolve: {
+              reservas: function () {
+                return {};
+              },
+              reserva: function (ReservaService, $stateParams) {
+                return ReservaService.get($stateParams.reservaId);
+              },
+              areas: function(){
+                return {};
+              }
+            }, controller: 'ReservaCtrl'
+          }
+        },
+        data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.reservaAdicionar', {
+        url: '/reserva/adicionar/',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reserva/reserva_adicionar.html',
+            resolve: {
+              reservas: function(){
+                return {};
+              },
+              reserva: function(){
+                return {};
+              },
+              areas: function(AreaService){
+                return AreaService.getLista();
+              }
+            },
+            controller: 'ReservaCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      });
 
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
