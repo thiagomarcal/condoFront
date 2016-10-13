@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.c
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
                   'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service',
-                   'veiculo.service', 'veiculo.controller'])
+                   'veiculo.service', 'veiculo.controller', 'reclamacao.service', 'reclamacao.controller'])
 //angular.module('starter', ['ionic'])
 
   .run(function($ionicPlatform) {
@@ -1170,7 +1170,27 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.c
             }
           },
           data: {authorizedRoles: [USER_ROLES.admin]}
-        });
+        })
+
+      .state('app.reclamacoes', {
+        url: '/reclamacoes',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reclamacao/reclamacoes.html',
+            resolve: {
+              reclamacoes: function (ReclamacaoService) {
+                return ReclamacaoService.getLista();
+              },
+              reclamacao: function () {
+                return {};
+              }
+            },
+            controller: 'ReclamacaoCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+    ;
 
 
     $urlRouterProvider.otherwise(function ($injector, $location) {

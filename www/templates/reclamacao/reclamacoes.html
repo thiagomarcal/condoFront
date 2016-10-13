@@ -1,0 +1,35 @@
+<ion-view view-title="Minhas Reclamações">
+
+  <ion-nav-buttons side="right">
+    <a class="button button-icon icon ion-plus-circled" ng-click="adicionarReclamacao()"></a>
+  </ion-nav-buttons>
+
+  <ion-content>
+
+
+    <ion-list>
+
+      <ion-item ng-repeat="reclamacao in reclamacoes" href="#/app/reclamacao/{{reclamacao.id}}"
+                item="item">
+        <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
+        {{reclamacao.descricao}}
+
+
+        <span class="item-note">
+            Morador: {{reclamacao.morador.pessoa.nome}}
+        </span>
+
+        <ion-option-button class="button-assertive"
+                           ng-click="excluirReclamacao(reclamacao.id)">
+          Excluir
+        </ion-option-button>
+        <ion-option-button class="button-calm"
+                           ng-click="editarReclamacao(reclamacao.id)">
+          Editar
+        </ion-option-button>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-view>
