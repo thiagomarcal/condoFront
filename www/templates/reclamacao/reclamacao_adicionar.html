@@ -1,0 +1,38 @@
+<ion-view view-title="Nova Reclamação">
+  <ion-content>
+
+    <div class="list">
+     
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Apartamento
+        </div>
+        <select ng-model="reclamacao.apartamento" ng-options="apartamento.nome for apartamento in apartamentos">
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Morador
+        </div>
+        <select ng-model="reclamacao.morador" ng-options="morador.pessoa.nome for morador in moradores">
+        </select>
+      </label>
+
+
+       <label class="item item-input item-stacked-label">
+        <span class="input-label">Nome</span>
+        <input type="text" value="{{reclamacao.descricao}}" ng-model="reclamacao.descricao">
+      </label>
+
+   </div>
+
+
+    <button ng-click="novaReclamacao()" class="button button-block button-positive">
+      Adicionar
+    </button>
+
+
+  </ion-content>
+</ion-view>

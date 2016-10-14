@@ -3,10 +3,12 @@
  */
 angular.module('reclamacao.controller', [])
 
-  .controller('ReclamacaoCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, ReclamacaoService, reclamacao, reclamacoes) {
+  .controller('ReclamacaoCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, ReclamacaoService, reclamacao, reclamacoes, moradores, apartamentos) {
 
     $scope.reclamacao = reclamacao;
     $scope.reclamacoes = reclamacoes;
+    $scope.moradores = moradores;
+    $scope.apartamentos = apartamentos;
 
 
     $rootScope.$on('listaReclamacaoAlterada', function() {

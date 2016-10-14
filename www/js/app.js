@@ -1183,12 +1183,92 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'login.c
               },
               reclamacao: function () {
                 return {};
+              },
+              moradores: function () {
+                  return {};
+              },
+              apartamentos: function(){
+                return {};
               }
             },
             controller: 'ReclamacaoCtrl'
           }
         }, data: {authorizedRoles: [USER_ROLES.admin]}
       })
+
+      .state('app.reclamacaoAdicionar', {
+          url: '/reclamacao/adicionar/',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/reclamacao/reclamacao_adicionar.html',
+              resolve: {
+                reclamacoes: function () {
+                  return {};
+                },
+                reclamacao: function (ReclamacaoService, $stateParams) {
+                  return {};
+                },
+                moradores: function (MoradorService) {
+                  return MoradorService.getLista();
+                },
+                apartamentos: function(ApartamentoService){
+                  return ApartamentoService.getLista();
+                }
+              },
+              controller: 'ReclamacaoCtrl'
+            }
+          },
+          data: {authorizedRoles: [USER_ROLES.admin]}
+        })
+
+      .state('app.reclamacao', {
+          url: '/reclamacao/:reclamacaoId',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/reclamacao/reclamacao.html', resolve: {
+                reclamacoes: function () {
+                  return {};
+                },
+                 reclamacao: function (ReclamacaoService, $stateParams) {
+                  return ReclamacaoService.get($stateParams.reclamacaoId);
+                },
+                moradores: function () {
+                  return {};
+                },
+                apartamentos: function(){
+                  return {};
+                }
+              },
+              controller: 'ReclamacaoCtrl'
+            }
+          },
+          data: {authorizedRoles: [USER_ROLES.admin]}
+        })
+
+        .state('app.reclamacaoEditar', {
+          url: '/reclamacao/editar/:reclamacaoId',
+          views: {
+            'menuContent': {
+              templateUrl: 'templates/reclamacao/reclamacao_editar.html',
+              resolve: {
+                reclamacoes: function () {
+                  return {};
+                },
+                reclamacao: function (ReclamacaoService, $stateParams) {
+                  return ReclamacaoService.get($stateParams.reclamacaoId);
+                },
+                moradores: function (MoradorService) {
+                  return MoradorService.getLista();
+                },
+                apartamentos: function(ApartamentoService){
+                  return ApartamentoService.getLista();
+                }
+              },
+              controller: 'ReclamacaoCtrl'
+            }
+          },
+          data: {authorizedRoles: [USER_ROLES.admin]}
+        })
 
     ;
 

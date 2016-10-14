@@ -1,0 +1,33 @@
+<ion-view view-title="Minha Reclamação">
+  <ion-content>
+
+    <div class="list card">
+
+      <div class="item">
+        <h2>{{reclamacao.descricao}}</h2>
+      </div>
+
+
+
+      <div class="item item-body">
+        <ion-item>
+          <ion-label>Data da Reclamação</ion-label>
+          <ion-datetime>{{ reclamacao.dataRegistro | date : 'dd/MM/yyyy HH:mm:ss'}}</ion-datetime>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label> Morador : {{reclamacao.morador.pessoa.nome}} </ion-label>
+        </ion-item> 
+
+         <ion-item>
+          <ion-label> Apartamento : {{reclamacao.apartamento.nome}} </ion-label>
+        </ion-item>   
+
+      </div>
+
+    </div>
+
+
+  </ion-content>
+</ion-view>
