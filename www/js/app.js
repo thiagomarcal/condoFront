@@ -1181,6 +1181,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
               reservas: function (ReservaService) {
                 return ReservaService.getLista();
               },
+              minhasReservas: function (ReservaService) {
+                return ReservaService.getListaMorador();
+              },
               reserva: function () {
                 return {};
               },
@@ -1190,7 +1193,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
             },
             controller: 'ReservaCtrl'
           }
-        }, data: {authorizedRoles: [USER_ROLES.admin]}
+        }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       })
 
       .state('app.reserva', {
@@ -1199,6 +1202,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
           'menuContent': {
             templateUrl: 'templates/reserva/reserva.html', resolve: {
               reservas: function () {
+                return {};
+              },
+              minhasReservas: function () {
                 return {};
               },
               reserva: function (ReservaService, $stateParams) {
@@ -1210,16 +1216,22 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
             }, controller: 'ReservaCtrl'
           }
         },
-        data: {authorizedRoles: [USER_ROLES.admin]}
+        data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       })
 
       .state('app.reservaAdicionar', {
         url: '/reserva/adicionar/',
+        params: {
+            dataReserva: null
+        },
         views: {
           'menuContent': {
             templateUrl: 'templates/reserva/reserva_adicionar.html',
             resolve: {
               reservas: function(){
+                return {};
+              },
+              minhasReservas: function(){
                 return {};
               },
               reserva: function(){
@@ -1233,7 +1245,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
           }
         },
         data: {
-          authorizedRoles: [USER_ROLES.admin]
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
         }
       });
 

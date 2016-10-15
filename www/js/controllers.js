@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS, SocketService, MensagemService, $ionicPlatform, $cordovaLocalNotification) {
+.controller('AppCtrl', function($scope, $state, $ionicPopup, $ionicHistory, AuthService, AUTH_EVENTS, SocketService, MensagemService, $ionicPlatform, $cordovaLocalNotification) {
   $scope.username = AuthService.username();
 
   $scope.messages = [];
@@ -27,7 +27,11 @@ angular.module('starter.controllers', [])
 
   $scope.logout = function () {
     AuthService.logout();
-    $state.go('login');
+    $ionicHistory.clearCache().then(function(){
+      $ionicHistory.clearHistory();
+      $state.go('login', {}, {reload:true});
+    });
+
   };
 
   SocketService.receive().then(null, null, function(message) {

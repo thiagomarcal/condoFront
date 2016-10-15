@@ -1,8 +1,9 @@
 angular.module('reserva.controller', [])
 
-.controller('ReservaCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reserva, reservas, areas, ReservaService, ReservaSocketService) {
+.controller('ReservaCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reserva, reservas, minhasReservas, areas, ReservaService, ReservaSocketService) {
 
 	$scope.reservas = reservas;
+	$scope.minhasReservas = minhasReservas;
 	$scope.eventSource = [];
 
 	angular.forEach(reservas, function (item) {
@@ -12,14 +13,21 @@ angular.module('reserva.controller', [])
 	$scope.reserva = reserva;
 	$scope.areas = areas;
 
+	$scope.reserva.dataInicio = $stateParams.dataReserva; 
+	$scope.reserva.dataFim = $stateParams.dataReserva;
+
 	$rootScope.$on('listaReservaAlterada', function() {
     	ReservaService.getLista().then(function (data) {
     		$scope.reservas = data;
-    	});	
+
+    	});
+    	ReservaService.getListaMorador().then(function (data) {
+    		$scope.minhasReservas = data;
+    	});
 	});
 
 	$scope.adicionar = function() {
-		$state.go('app.reservaAdicionar');
+		$state.go('app.reservaAdicionar', {dataReserva: $scope.dataReserva});
 	};
 
 	$scope.editar = function(id) {
@@ -67,8 +75,26 @@ angular.module('reserva.controller', [])
 
 
 	$scope.onTimeSelected = function (selectedTime, events) {
-
+		$scope.dataReserva = selectedTime;
    	 	console.log('Selected time: ' + selectedTime + ', hasEvents: ' + (events !== undefined && events.length !== 0));
+	};
+
+	$scope.onEventSelected = function (event) {
+
+	  $scope.reserva = event.reserva;	
+
+	  var myPopup = $ionicPopup.show({
+	    templateUrl: '/templates/reserva/reserva.html',
+	    title: 'Reserva',
+	    subTitle: event.reserva.area.nome,
+	    scope: $scope,
+	    buttons: [
+	      { text: 'Fechar' },
+	    ]
+	  });
+
+    	console.log(event.title);
+    	console.log(event.reserva);
 	};
 
 	ReservaSocketService.receive().then(null, null, function(item) {
@@ -78,10 +104,12 @@ angular.module('reserva.controller', [])
 
   	function parseEvento(item) {
   		var event = {};
-		event.title = item.area.nome + ' - ' + item.morador.apartamento.nome;
+		event.title = item.area.nome + ' - ' + item.situacao;
+		// event.title = item.area.nome + ' - Ap: ' + item.morador.apartamento.numero + ' - Bl: ' + item.morador.apartamento.edificio.bloco.nome + ' - ' + item.situacao;
 		event.startTime =  new Date(item.dataInicio);
 		event.endTime =  new Date(item.dataFim);
 		event.allDay = false;
+		event.reserva = item;
 		$scope.eventSource.push(event);
 		$scope.$broadcast('eventSourceChanged',$scope.eventSource);
   	}
