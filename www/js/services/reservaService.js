@@ -18,6 +18,21 @@ angular.module('reserva.service', [])
          return deferred.promise;
     }
 
+    function getListaMorador() {
+
+        var deferred = $q.defer();
+
+        $http.get('http://'+SERVIDOR.endereco+'/api/minhasreservas')
+         .success(function(data) {
+           deferred.resolve(data);
+         })
+         .error(function(response) {
+           deferred.reject(response);
+         });
+
+         return deferred.promise;
+    }
+
     function get(reservaId) {
 
         var deferred = $q.defer();
@@ -80,6 +95,7 @@ angular.module('reserva.service', [])
 
     return {
         getLista: getLista,
+        getListaMorador: getListaMorador,
         get: get,
         put: put,
         deletar: deletar,

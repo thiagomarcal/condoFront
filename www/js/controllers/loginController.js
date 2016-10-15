@@ -1,6 +1,12 @@
 angular.module('login.controller', [])
 
-.controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
+.controller('LoginCtrl', function($scope, $ionicHistory, $state, $ionicPopup, AuthService) {
+
+	$scope.$on("$ionicView.enter", function () {
+   		$ionicHistory.clearCache();
+   		$ionicHistory.clearHistory();
+	});
+
 	$scope.data = {};
 
 	$scope.login = function(data) {
