@@ -1,0 +1,31 @@
+<ion-view view-title="Controle de Reservas">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="reserva in reservas"
+            item="item">
+                <div class="list">
+                    <a class="item item-icon-left">
+                        <i class="icon ion-clock energized"></i>
+                        <h2>{{reserva.area.nome}}</h2>
+                        <p>Inicio: {{ reserva.dataInicio | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        <p>Fim: {{ reserva.dataFim | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        <p>Situacao: {{reserva.situacao}}</p>
+                        <div class="row">
+                          <div class="col">
+                            <button class="button button-assertive" ng-click="rejeitarReserva(reserva)">
+                                Rejeitar
+                            </button>
+                          </div>
+                          <div class="col">
+                            <button class="button button-balanced" ng-click="aprovarReserva(reserva)">
+                                Aprovar
+                            </button>
+                          </div>
+                        </div>
+                    </a>
+                </div>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
