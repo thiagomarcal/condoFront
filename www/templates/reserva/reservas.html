@@ -23,28 +23,23 @@
                 <ion-nav-view name="tab-tab2">
                     <ion-content>
 						<ion-list>
+					      <ion-item ng-repeat="minhaReserva in minhasReservas">
+                            <div class="list">
 
-					      <ion-item ng-repeat="minhaReserva in minhasReservas"
-					                item="item">
-					        <button click-for-options style="position: absolute; right: 10px; top: 0; height: 100%" class="button button-icon icon ion-ios7-telephone"></button>
-					        {{minhaReserva.area.nome}}
+                                <a class="item item-icon-left">
 
-					         <span class="item-note" >
-					            De: {{ minhaReserva.dataInicio | date : 'dd/MM/yyyy HH:mm:ss'}} até {{ minhaReserva.dataInicio | date : 'dd/MM/yyyy HH:mm:ss'}}
-					          </span>
+                                    <i ng-if="minhaReserva.situacao === 'Aprovado'" class="icon ion-checkmark balanced"></i>
+                                    <i ng-if="minhaReserva.situacao === 'Pendente'" class="icon ion-clock energized"></i>
+                                    <i ng-if="minhaReserva.situacao === 'Rejeitado'" class="icon ion-close assertive"></i>
 
-					          <span class="badge">
-					            <i ng-if="minhaReserva.situacao === 'Aprovado'" class="icon ion-checkmark balanced"></i>
-					            <i ng-if="minhaReserva.situacao === 'Pendente'" class="icon ion-clock energized"></i>
-					            <i ng-if="minhaReserva.situacao === 'Rejeitado'" class="icon ion-close assertive"></i>
-					          </span>
+                                    <h2>{{minhaReserva.area.nome}}</h2>
+                                    <p>Inicio: {{ minhaReserva.dataInicio | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                                    <p>Fim: {{ minhaReserva.dataInicio | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                                    <p>Situacao: {{minhaReserva.situacao}}</p>
+                                </a>
 
-
-					        <!-- <ion-option-button class="button-assertive"
-					                           ng-click="excluir(mensagem.id)">
-					          Excluir
-					        </ion-option-button> -->
-
+                            </div>        
+					       
 					      </ion-item>
 
 					    </ion-list>            
@@ -52,12 +47,4 @@
                 </ion-nav-view>
             </ion-tab>
         </ion-tabs>
-
-
-
- <!--  <ion-content>
-
-    <calendar calendar-mode="mode" event-source="eventSource" time-selected="onTimeSelected(selectedTime, eventSource)" event-selected="onEventSelected(event)">
-
-  </ion-content> -->
 </ion-view>

@@ -1,17 +1,19 @@
 angular.module('reserva.controller', [])
 
-.controller('ReservaCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reserva, reservas, minhasReservas, areas, ReservaService, ReservaSocketService) {
+.controller('ReservaCtrl', function($scope, $ionicHistory, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reserva, reservas, minhasReservas, areas, ReservaService, ReservaSocketService, ControleSocketService) {
 
 	$scope.reservas = reservas;
-	$scope.minhasReservas = minhasReservas;
-	$scope.eventSource = [];
-
-	angular.forEach(reservas, function (item) {
-		parseEvento(item);		 
-	});
-
 	$scope.reserva = reserva;
+
+	$scope.minhasReservas = minhasReservas;
 	$scope.areas = areas;
+
+	$scope.eventSource = [];
+	if ($scope.reservas.length) {
+		$scope.reservas.forEach(function (item) {
+			parseEvento(item);
+		});
+	}
 
 	$scope.reserva.dataInicio = $stateParams.dataReserva; 
 	$scope.reserva.dataFim = $stateParams.dataReserva;
@@ -19,11 +21,29 @@ angular.module('reserva.controller', [])
 	$rootScope.$on('listaReservaAlterada', function() {
     	ReservaService.getLista().then(function (data) {
     		$scope.reservas = data;
-
     	});
     	ReservaService.getListaMorador().then(function (data) {
     		$scope.minhasReservas = data;
     	});
+	});
+
+	$rootScope.$on('listaReservaMoradorAlterada', function(event, data) {
+    	
+    	$scope.eventSource.forEach(function (evento) {
+	    	if (data.id === evento.reserva.id) {
+	    		evento.title = data.area.nome + ' - ' + data.situacao;
+	    		evento.reserva = data;
+	    	}
+	    });
+
+	    $scope.minhasReservas.forEach(function(minha) {
+	    	if (minha.id === data.id) {
+	    		minha.situacao = data.situacao; 
+	    	}
+	    });
+	    
+	    $scope.$broadcast('eventSourceChanged',$scope.eventSource);
+
 	});
 
 	$scope.adicionar = function() {
@@ -32,6 +52,10 @@ angular.module('reserva.controller', [])
 
 	$scope.editar = function(id) {
 		$state.go('app.reservaEditar', {reservaId: id});
+	};
+
+	$scope.teste = function() {
+		console.log('teste');
 	};
 
 	$scope.excluir = function(id) {
@@ -101,11 +125,14 @@ angular.module('reserva.controller', [])
 	    parseEvento(item); 
   	});
 
+  	ControleSocketService.receive().then(null, null, function(item) {
+	    $scope.$emit('listaReservaMoradorAlterada', item);
+  	});
+
 
   	function parseEvento(item) {
   		var event = {};
 		event.title = item.area.nome + ' - ' + item.situacao;
-		// event.title = item.area.nome + ' - Ap: ' + item.morador.apartamento.numero + ' - Bl: ' + item.morador.apartamento.edificio.bloco.nome + ' - ' + item.situacao;
 		event.startTime =  new Date(item.dataInicio);
 		event.endTime =  new Date(item.dataFim);
 		event.allDay = false;
