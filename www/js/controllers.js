@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $state, $ionicPopup, $ionicHistory, AuthService, AUTH_EVENTS, SocketService, MensagemService, $ionicPlatform, $cordovaLocalNotification) {
+.controller('AppCtrl', function($scope, $rootScope, $state, $ionicPopup, $ionicHistory, AuthService, AUTH_EVENTS, SocketService, MensagemService, UserSocketService, ReservaSocketService, ControleSocketService, $ionicPlatform, $cordovaLocalNotification) {
   $scope.username = AuthService.username();
 
   $scope.messages = [];
@@ -48,6 +48,30 @@ angular.module('starter.controllers', [])
     });
 
     $scope.messages.push(message);
+  });
+
+
+
+  ReservaSocketService.receive().then(null, null, function(item) {
+      //$rootScope.$broadcast('novaReserva', item);
+      $rootScope.$emit('novaReserva', {novaReserva: item}); 
+  });
+
+  ControleSocketService.receive().then(null, null, function(item) {
+      $rootScope.$emit('novoControleReserva', {novoControleReserva: item});
+  });
+
+  UserSocketService.receive().then(null, null, function(message) {
+      console.log("Mensagem para Usuario recebida");
+      $ionicPlatform.ready(function () {
+            $cordovaLocalNotification.schedule({
+            id: 1,
+            text: message.descricao,
+            title: message.titulo
+          }).then(function () {
+            $state.go('app.reservas');
+          });
+      });
   });
 
   $scope.mensagens = function() {
