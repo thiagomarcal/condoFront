@@ -1,6 +1,6 @@
 angular.module('reserva.controller', [])
 
-.controller('ReservaCtrl', function($scope, $ionicHistory, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reserva, reservas, minhasReservas, areas, ReservaService, ReservaSocketService, ControleSocketService) {
+.controller('ReservaCtrl', function($scope, $ionicHistory, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reserva, reservas, minhasReservas, areas, ReservaService, ReservaSocketService, ControleSocketService, UserSocketService) {
 
 	$scope.reservas = reservas;
 	$scope.reserva = reserva;
@@ -19,8 +19,15 @@ angular.module('reserva.controller', [])
 	$scope.reserva.dataFim = $stateParams.dataReserva;
 
 	$rootScope.$on('listaReservaAlterada', function() {
+    	
     	ReservaService.getLista().then(function (data) {
     		$scope.reservas = data;
+    		$scope.eventSource = [];
+			if ($scope.reservas.length) {
+				$scope.reservas.forEach(function (item) {
+					parseEvento(item);
+				});
+			}
     	});
     	ReservaService.getListaMorador().then(function (data) {
     		$scope.minhasReservas = data;
@@ -41,7 +48,7 @@ angular.module('reserva.controller', [])
 	    		minha.situacao = data.situacao; 
 	    	}
 	    });
-	    
+
 	    $scope.$broadcast('eventSourceChanged',$scope.eventSource);
 
 	});
@@ -87,6 +94,12 @@ angular.module('reserva.controller', [])
 
 			ReservaSocketService.send(reserva);
 
+			var notificacao = {};
+			notificacao.titulo = 'Reservas CondoApp';
+			notificacao.descricao = 'Existem Reservas Pendentes'; 
+
+			UserSocketService.sendSindico(notificacao);
+
 			var alertPopup = $ionicPopup.alert({
 				title: 'CondoApp',
 				template: 'Reserva criada com sucesso!'
@@ -121,14 +134,13 @@ angular.module('reserva.controller', [])
     	console.log(event.reserva);
 	};
 
-	ReservaSocketService.receive().then(null, null, function(item) {
-	    parseEvento(item); 
+  	$rootScope.$on("novaReserva", function(event, item) {
+  		parseEvento(item.novaReserva);
   	});
-
-  	ControleSocketService.receive().then(null, null, function(item) {
-	    $scope.$emit('listaReservaMoradorAlterada', item);
+	
+	$rootScope.$on("novoControleReserva", function(event, item) {
+  		$scope.$emit('listaReservaMoradorAlterada', item.novoControleReserva);
   	});
-
 
   	function parseEvento(item) {
   		var event = {};

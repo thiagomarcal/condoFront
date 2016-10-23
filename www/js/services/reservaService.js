@@ -76,6 +76,21 @@ angular.module('reserva.service', [])
          });
 
          return deferred.promise;
+    } 
+
+    function controle(reserva) {
+
+        var deferred = $q.defer();
+
+        $http.put('http://'+SERVIDOR.endereco+'/api/reservaControle/', reserva)
+         .success(function(data) {
+           deferred.resolve(data);
+         })
+         .error(function(response) {
+           deferred.reject(response);
+         });
+
+         return deferred.promise;
     }
 
     function deletar(reservaId) {
@@ -114,6 +129,7 @@ angular.module('reserva.service', [])
         getListaPendentes: getListaPendentes,
         get: get,
         put: put,
+        controle: controle,
         deletar: deletar,
         adicionar: adicionar,
     };

@@ -11,6 +11,7 @@ angular.module('login.controller', [])
 
 	$scope.login = function(data) {
 		AuthService.login(data.username, data.password).then(function(authenticated) {
+
 			$state.go('app.playlists', {}, {
 				reload: true
 			});

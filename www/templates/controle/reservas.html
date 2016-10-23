@@ -1,7 +1,7 @@
 <ion-view view-title="Controle de Reservas">
     <ion-content>
         <ion-list>
-            <ion-item ng-repeat="reserva in reservas"
+            <ion-item ng-repeat="reserva in reservas track by reserva.id"
             item="item">
                 <div class="list">
                     <a class="item item-icon-left">

@@ -1,12 +1,13 @@
 angular.module('controle.controller', [])
 
-.controller('ControleCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reservas, reserva, ReservaService, ReservaSocketService, ControleSocketService) {
+.controller('ControleCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reservas, reserva, ReservaService, ControleSocketService, UserSocketService) {
 
 	$scope.reservas = reservas;
 	$scope.reserva = reserva;
 
-	ReservaSocketService.receive().then(null, null, function(item) {
-	    $scope.reservas.push(item); 
+
+ 	$rootScope.$on("novaReserva", function(item) {
+  		$scope.$emit('listaControleReservaAlterada'); 
   	});
 
 	$rootScope.$on('listaControleReservaAlterada', function() {
@@ -25,8 +26,15 @@ angular.module('controle.controller', [])
 
     $scope.aprovarReserva = function (reserva) {
     	reserva.situacao = 'Aprovado';
-    	ReservaService.put(reserva).then(function(data) {
+    	ReservaService.controle(reserva).then(function(data) {
     		ControleSocketService.send(data);
+
+    		var notificacao = {};
+			notificacao.titulo = 'Reserva CondoApp';
+			notificacao.descricao = 'Sua Reserva foi aprovada';
+			notificacao.morador =  data.morador.id;
+
+    		UserSocketService.sendMorador(notificacao);
 			var alertPopup = $ionicPopup.alert({
 								title: 'CondoApp',
 								template: 'Reserva Aprovada com sucesso!'
@@ -37,8 +45,15 @@ angular.module('controle.controller', [])
 
     $scope.rejeitarReserva = function (reserva) {
     	reserva.situacao = 'Rejeitado';
-    	ReservaService.put(reserva).then(function(data) {
+    	ReservaService.controle(reserva).then(function(data) {
     		ControleSocketService.send(data);
+
+    		var notificacao = {};
+			notificacao.titulo = 'Reserva CondoApp';
+			notificacao.descricao = 'Sua Reserva foi negada';
+			notificacao.morador =  data.morador.id; 
+
+    		UserSocketService.sendMorador(notificacao);
 			var alertPopup = $ionicPopup.alert({
 								title: 'CondoApp',
 								template: 'Reserva Rejeitada com sucesso!'
