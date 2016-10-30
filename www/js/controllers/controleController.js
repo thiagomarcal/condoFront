@@ -112,6 +112,7 @@ angular.module('controle.controller', [])
 
     $scope.encomendaEntregue = function (encomenda) {
     	encomenda.situacao = 'Entregue';
+    	encomenda.dataEntregue = new Date();
     	EncomendaService.put(encomenda).then(function(data) {
     		
     		var notificacao = {};
