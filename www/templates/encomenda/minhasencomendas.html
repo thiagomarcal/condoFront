@@ -1,0 +1,28 @@
+<ion-view view-title="Minhas Encomendas">
+  <ion-content>
+            <ion-list>
+                <ion-item ng-repeat="encomenda in encomendas">
+                            <div class="list">
+
+                                <a class="item item-icon-left">
+
+                                    <i ng-if="encomenda.situacao === 'Entregue'" class="icon ion-checkmark balanced"></i>
+                                    <i ng-if="encomenda.situacao === 'Pendente'" class="icon ion-clock energized"></i>
+
+                                    <h2>{{encomenda.identificador}}</h2>
+                                    <p>Morador: {{encomenda.morador.pessoa.nome}}</p>
+                                    <p>Edificio: {{ encomenda.morador.apartamento.edificio.nome }}</p>
+                                    <p>Bloco: {{ encomenda.morador.apartamento.edificio.bloco.nome }}</p>
+                                    <p>Apartamento: {{ encomenda.morador.apartamento.numero }}</p>
+                                    <p>Data Chegada: {{ encomenda.dataChegada | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                                    <p>Data Entregue: {{ encomenda.dataEntregue | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                                    <p>Situacao: {{encomenda.situacao}}</p>
+                                </a>
+
+                            </div>        
+                 
+                </ion-item>
+
+              </ion-list>            
+  </ion-content>
+</ion-view>

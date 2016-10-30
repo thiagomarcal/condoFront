@@ -8,8 +8,8 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
                   'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service', 'reservasocket.service', 'controlesocket.service', 'usersocket.service',  
-                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller', 'controle.controller'])
-//angular.module('starter', ['ionic'])
+                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller', 'controle.controller', 'cadastro.controller', 'encomenda.service', 'encomenda.controller'])
+
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -1260,6 +1260,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
               },
               reserva: function(){
                 return {};
+              },
+              encomendas: function (EncomendaService) {
+                return EncomendaService.getListaPendentes();
+              },
+              encomenda: function(){
+                return {};
               }
             },
             controller: 'ControleCtrl'
@@ -1281,12 +1287,148 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
               },
               reserva: function () {
                 return {};
+              },
+              encomenda: function () {
+                return {};
+              },
+              encomendas: function () {
+                return {};
+              }
+            },
+            controller: 'ControleCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.cadastros', {
+        url: '/cadastros',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/cadastro/cadastros.html',
+            resolve: {
+              
+            },
+            controller: 'CadastroCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.encomendas', {
+        url: '/encomendas',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/encomenda/encomendas.html',
+            resolve: {
+              encomendas: function (EncomendaService) {
+                return EncomendaService.getLista();
+              },
+              encomenda: function () {
+                return {};
+              },
+              moradores: function () {
+                return {};
+              }
+            },
+            controller: 'EncomendaCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+
+      .state('app.minhasencomendas', {
+        url: '/minhasencomendas',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/encomenda/minhasencomendas.html',
+            resolve: {
+              encomendas: function (EncomendaService) {
+                return EncomendaService.getListaMorador();
+              },
+              encomenda: function () {
+                return {};
+              },
+              moradores: function () {
+                return {};
+              }
+            },
+            controller: 'EncomendaCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
+      })
+
+      .state('app.encomenda', {
+        url: '/encomenda/:encomendaId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/encomenda/encomenda.html', 
+            resolve: {
+              encomendas: function () {
+                return {};
+              },
+              encomenda: function (EncomendaService, $stateParams) {
+                return EncomendaService.get($stateParams.encomendaId);
+              },
+              moradores: function () {
+                return {};
+              }
+            }, controller: 'EncomendaCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.encomendaAdicionar', {
+        url: '/encomenda/adicionar/',
+        params: {
+            dataReserva: null
+        },
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/encomenda/encomenda_adicionar.html',
+            resolve: {
+              encomendas: function(){
+                return {};
+              },
+              encomenda: function(){
+                return {};
+              },
+              moradores: function (MoradorService) {
+                return MoradorService.getLista();
+              }
+            },
+            controller: 'EncomendaCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+       .state('app.controlesEncomendas', {
+        url: '/controlesEncomendas',
+        params: {
+            encomendasPendentes: null
+        },
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/controle/encomendas.html',
+            resolve: {
+              reservas: function () {
+                return {};
+              },
+              reserva: function () {
+                return {};
+              },
+              encomendas: function () {
+                return {};
+              },
+              encomenda: function () {
+                return {};
               }
             },
             controller: 'ControleCtrl'
           }
         }, data: {authorizedRoles: [USER_ROLES.admin]}
       });
+
 
 
     $urlRouterProvider.otherwise(function ($injector, $location) {

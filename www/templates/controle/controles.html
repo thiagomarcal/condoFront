@@ -2,9 +2,14 @@
 
   <ion-content>
       <a class="item item-icon-left" ng-click="verReservas()">
-        <i class="icon ion-person-stalker"></i>
+        <i class="icon ion-clipboard"></i>
         Reservas
         <span class="badge badge-assertive" ng-if="reservas.length > 0">{{reservas.length}}</span>
+      </a>
+      <a class="item item-icon-left" ng-click="verEncomendas()">
+        <i class="icon ion-email"></i>
+        Encomendas
+        <span class="badge badge-assertive" ng-if="encomendas.length > 0">{{encomendas.length}}</span>
       </a>
   </ion-content>
 </ion-view>

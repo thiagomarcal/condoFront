@@ -63,15 +63,27 @@ angular.module('starter.controllers', [])
 
   UserSocketService.receive().then(null, null, function(message) {
       console.log("Mensagem para Usuario recebida");
+
+
       $ionicPlatform.ready(function () {
             $cordovaLocalNotification.schedule({
             id: 1,
             text: message.descricao,
             title: message.titulo
           }).then(function () {
-            $state.go('app.reservas');
+            if (message.titulo === 'Encomenda CondoApp') {
+              $state.go('app.minhasencomendas');
+            }
+            if (messagle.titulo === 'Reserva CondoApp') {
+              $state.go('app.reservas');
+            }
+
           });
       });
+
+      if (message.titulo === 'Encomenda CondoApp') {
+        $rootScope.$emit('minhasEncoAlt', {novoControleEntrega: message});
+      }
   });
 
   $scope.mensagens = function() {
