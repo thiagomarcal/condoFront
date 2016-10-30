@@ -19,6 +19,11 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
+
+        <ion-item menu-close href="#/app/cadastros">
+          Cadastro
+        </ion-item>
+<!-- 
         <ion-item menu-close href="#/app/condominios">
           Condominios
         </ion-item>
@@ -41,32 +46,36 @@
 
         <ion-item menu-close href="#/app/moradores">
           Morador
-        </ion-item>
+        </ion-item> -->
 
         <ion-item menu-close href="#/app/visitantes">
           Visitantes
         </ion-item>
 
-        <ion-item menu-close href="#/app/veiculos">
+<!--         <ion-item menu-close href="#/app/veiculos">
           Veiculos
         </ion-item>
 
         <ion-item menu-close href="#/app/murais">
           Murais
-        </ion-item>
+        </ion-item> -->
 
         <ion-item menu-close href="#/app/reservas">
           Reservas
+        </ion-item>
+
+        <ion-item menu-close href="#/app/minhasencomendas">
+          Encomendas
         </ion-item>
 
         <ion-item menu-close href="#/app/controles">
           Controle
         </ion-item>
 
-        <ion-item menu-close href="#/app/usuarios">
+<!--         <ion-item menu-close href="#/app/usuarios">
           Usuarios
         </ion-item>
-
+ -->
         <ion-item menu-close href="#/app/search">
           Search
         </ion-item>
@@ -92,7 +101,7 @@
     Home
   </a>
   <a class="tab-item" ng-click="mensagens()" href="#/app/mensagens">
-    <i class="icon ion-email badge-container"><span ng-if="messages.length > 0" class="badge badge-assertive">{{messages.length}}</span></i>
+    <i class="icon ion-paper-airplane badge-container"><span ng-if="messages.length > 0" class="badge badge-assertive">{{messages.length}}</span></i>
     Mensagens
   </a>
 </div>

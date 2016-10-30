@@ -1,0 +1,34 @@
+<ion-view view-title="Controle de Encomendas">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="encomenda in encomendas track by encomenda.id"
+            item="item">
+                <div class="list">
+                    <a class="item">
+                        <h2>{{encomenda.identificador}}</h2>
+                        <p>Morador: {{ encomenda.morador.pessoa.nome }}</p>
+                        <p>Edificio: {{ encomenda.morador.apartamento.edificio.nome }}</p>
+                        <p>Bloco: {{ encomenda.morador.apartamento.edificio.bloco.nome }}</p>
+                        <p>Apartamento: {{ encomenda.morador.apartamento.numero }}</p>
+                        <p>Data Chegada: {{ encomenda.dataChegada | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        <p>Data Entregue: {{ encomenda.dataEntregue | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        <p>Situacao: {{encomenda.situacao}}</p>
+                        <div class="row">
+                          <div class="col">
+                            <button class="button button-assertive" ng-click="notificarEncomenda(encomenda)">
+                                Notificar
+                            </button>
+                          </div>
+                          <div class="col">
+                            <button class="button button-balanced" ng-click="encomendaEntregue(encomenda)">
+                                Entregue
+                            </button>
+                          </div>
+                        </div>
+                    </a>
+                </div>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,21 @@
+<ion-view view-title="Encomenda">
+  <ion-content>
+   
+    <div class="list card">
+
+      <div class="item">
+        <h2>{{encomenda.identificador}}</h2>
+        <p>Morador: {{encomenda.morador.pessoa.nome}}</p>
+        <p>Edificio: {{ encomenda.morador.apartamento.edificio.nome }}</p>
+        <p>Bloco: {{ encomenda.morador.apartamento.edificio.bloco.nome }}</p>
+        <p>Apartamento: {{ encomenda.morador.apartamento.numero }}</p>
+        <p>Data Chegada: {{ encomenda.dataChegada | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+        <p>Data Entregue: {{ encomenda.dataEntregue | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+        <p>Situacao: {{encomenda.situacao}}</p>
+      </div>
+
+    </div>
+
+
+  </ion-content>
+</ion-view>
