@@ -1,0 +1,35 @@
+<ion-view view-title="Controle de Reclamação">
+    <ion-content>
+        <ion-list>
+            <ion-item ng-repeat="reclamacao in reclamacoes track by reclamacao.id"
+            item="item">
+                <div class="list">
+                    <a class="item">
+                        <h2>{{reclamacao.assunto}}</h2>
+                        <p>Detalhe: {{ reclamacao.descricao }}</p>
+                        <p>Morador: {{ reclamacao.morador.pessoa.nome }}</p>
+                        <p>Edificio: {{ reclamacao.morador.apartamento.edificio.nome }}</p>
+                        <p>Bloco: {{ reclamacao.morador.apartamento.edificio.bloco.nome }}</p>
+                        <p>Apartamento: {{ reclamacao.morador.apartamento.numero }}</p>
+                        <p>Data Envio: {{ reclamacao.dataEnvio | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        <p>Data Atendimento: {{ reclamacao.dataAtendimento | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        <p>Situacao: {{reclamacao.situacao}}</p>
+                        <div class="row">
+                          <div class="col">
+                            <button class="button button-assertive" ng-click="notificarReclamacao(reclamacao)">
+                                Notificar
+                            </button>
+                          </div>
+                          <div class="col">
+                            <button class="button button-balanced" ng-click="reclamacaoAtendida(reclamacao)">
+                                Finalizar
+                            </button>
+                          </div>
+                        </div>
+                    </a>
+                </div>
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

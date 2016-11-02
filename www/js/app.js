@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
                   'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service', 'reservasocket.service', 'controlesocket.service', 'usersocket.service',  
-                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller', 'controle.controller', 'cadastro.controller', 'encomenda.service', 'encomenda.controller'])
+                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller', 'controle.controller', 'cadastro.controller', 'encomenda.service', 'encomenda.controller', 'reclamacao.service', 'reclamacao.controller'])
 
 
   .run(function($ionicPlatform) {
@@ -1266,6 +1266,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
               },
               encomenda: function(){
                 return {};
+              },
+              reclamacoes: function (ReclamacaoService) {
+                return ReclamacaoService.getListaPendentes();
+              },
+              reclamacao: function(){
+                return {};
               }
             },
             controller: 'ControleCtrl'
@@ -1292,6 +1298,12 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
                 return {};
               },
               encomendas: function () {
+                return {};
+              },
+              reclamacao: function () {
+                return {};
+              },
+              reclamacoes: function () {
                 return {};
               }
             },
@@ -1355,6 +1367,9 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
           }
         }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       })
+
+
+      
 
       .state('app.encomenda', {
         url: '/encomenda/:encomendaId',
@@ -1422,12 +1437,153 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
               },
               encomenda: function () {
                 return {};
+              },
+              reclamacoes: function () {
+                return {};
+              },
+              reclamacao: function () {
+                return {};
               }
             },
             controller: 'ControleCtrl'
           }
         }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.reclamacoes', {
+        url: '/reclamacoes',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reclamacao/reclamacoes.html',
+            resolve: {
+              reclamacoes: function (ReclamacaoService) {
+                return ReclamacaoService.getLista();
+              },
+              reclamacao: function () {
+                return {};
+              },
+              areas: function () {
+                return {};
+              },
+              blocos: function () {
+                return {};
+              }
+            },
+            controller: 'ReclamacaoCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+       .state('app.reclamacao', {
+        url: '/reclamacao/:reclamacaoId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reclamacao/reclamacao.html', 
+            resolve: {
+              reclamacoes: function () {
+                return {};
+              },
+              reclamacao: function (ReclamacaoService, $stateParams) {
+                return ReclamacaoService.get($stateParams.reclamacaoId);
+              },
+              areas: function () {
+                return {};
+              },
+              blocos: function () {
+                return {};
+              }
+            }, controller: 'ReclamacaoCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.reclamacaoAdicionar', {
+        url: '/reclamacao/adicionar/',
+        params: {
+            dataReserva: null
+        },
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reclamacao/reclamacao_adicionar.html',
+            resolve: {
+              reclamacoes: function(){
+                return {};
+              },
+              reclamacao: function(){
+                return {};
+              },
+              areas: function (AreaService) {
+                return AreaService.getLista();
+              },
+              blocos: function (BlocoService) {
+                return BlocoService.getLista();
+              }
+            },
+            controller: 'ReclamacaoCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin]
+        }
+      })
+       .state('app.controlesReclamacoes', {
+        url: '/controlesReclamacoes',
+        params: {
+            reclamacoesPendentes: null
+        },
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/controle/reclamacoes.html',
+            resolve: {
+              reservas: function () {
+                return {};
+              },
+              reserva: function () {
+                return {};
+              },
+              encomendas: function () {
+                return {};
+              },
+              encomenda: function () {
+                return {};
+              },
+              reclamacoes: function () {
+                return {};
+              },
+              reclamacao: function () {
+                return {};
+              }
+            },
+            controller: 'ControleCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.minhasreclamacoes', {
+        url: '/minhasreclamacoes',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/reclamacao/minhasreclamacoes.html',
+            resolve: {
+              reclamacoes: function (ReclamacaoService) {
+                return ReclamacaoService.getListaMorador();
+              },
+              reclamacao: function(){
+                return {};
+              },
+              areas: function () {
+                return {};
+              },
+              blocos: function () {
+                return {};
+              }
+            },
+            controller: 'ReclamacaoCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       });
+
+
 
 
 

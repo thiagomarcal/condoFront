@@ -22,6 +22,21 @@ angular.module('edificio.service', [])
       return deferred.promise;
     }
 
+     function getListaBloco(blocoId) {
+
+      var deferred = $q.defer();
+
+      $http.get('http://'+SERVIDOR.endereco+'/api/edificios/bloco/'+ blocoId)
+        .success(function(data) {
+          deferred.resolve(data);
+        })
+        .error(function(response) {
+          deferred.reject(response);
+        });
+
+      return deferred.promise;
+    }
+
 
 
     function get(edificioId) {
@@ -89,6 +104,7 @@ angular.module('edificio.service', [])
 
     return {
       getLista: getLista,
+      getListaBloco: getListaBloco,
       get: get,
       put: put,
       deletar: deletar,
