@@ -1,0 +1,75 @@
+<ion-view view-title="Nova Reclamação">
+  <ion-content>
+
+    <div class="list">
+
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Tipo
+        </div>
+        <select ng-model="reclamacao.tipo" ng-options="tipo for tipo in tiposReclamacao">
+        </select>
+      </label>
+
+      <div ng-if="reclamacao.tipo === 'Area'">
+
+        <label class="item item-input item-select">
+				  <div class="input-label">
+				    Area
+				  </div>
+				  <select ng-model="reclamacao.area" ng-options="area.nome for area in areas">
+				  </select>
+			  </label>
+      </div>
+      
+      <div ng-if="reclamacao.tipo === 'Apartamento'">
+
+        <label class="item item-input item-select">
+				  <div class="input-label">
+				    Bloco
+				  </div>
+				  <select ng-model="reclamacao.bloco" ng-options="bloco.nome for bloco in blocos" ng-change="carregarEdificios(reclamacao.bloco)">
+				  </select>
+			  </label>
+
+        <label class="item item-input item-select">
+				  <div class="input-label">
+				    Edificio
+				  </div>
+				  <select ng-model="reclamacao.edificio" ng-options="edificio.nome for edificio in edificios" ng-change="carregarApartamentos(reclamacao.edificio)">
+				  </select>
+			  </label>
+
+        <label class="item item-input item-select">
+				  <div class="input-label">
+				    Apartamento
+				  </div>
+				  <select ng-model="reclamacao.apartamento" ng-options="apartamento.numero for apartamento in apartamentos" >
+				  </select>
+			  </label>
+        
+      </div>
+
+      <label class="item item-input item-stacked-label">
+          <span class="input-label">Assunto</span>
+          <input type="text" value="{{reclamacao.assunto}}" ng-model="reclamacao.assunto">
+        </label>
+
+        <label class="item item-input">
+  			  <textarea ng-model="reclamacao.descricao" placeholder="Digite aqui sua reclamação ..." rows="5"></textarea>
+		    </label>
+
+        <img id="myImage" style="width:100%; height: auto;">
+
+        <button ng-click="postarImagem(mensagem)" class="button button-block button-positive">
+            Imagem
+        </button>
+        
+        <button ng-click="enviarAdicao()" class="button button-block button-positive">
+          Adicionar
+        </button>
+
+    </div>
+
+  </ion-content>
+</ion-view>

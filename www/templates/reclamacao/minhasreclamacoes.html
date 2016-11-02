@@ -1,0 +1,29 @@
+<ion-view view-title="Minhas Reclamações">
+    <ion-nav-buttons side="right">
+      	<a class="button button-icon icon ion-plus-circled" ng-click="adicionar()"></a>
+    </ion-nav-buttons>
+  <ion-content>
+            <ion-list>
+                <ion-item ng-repeat="reclamacao in reclamacoes">
+                            <div class="list">
+
+                                <a class="item item-icon-left">
+
+                                    <i ng-if="reclamacao.situacao === 'Atendida'" class="icon ion-checkmark balanced"></i>
+                                    <i ng-if="reclamacao.situacao === 'Pendente'" class="icon ion-clock energized"></i>
+
+                                    <h2>{{reclamacao.assunto}}</h2>
+                                    <p>Tipo: {{ reclamacao.tipo }}</p>
+                                    <p>Descricao: {{reclamacao.descricao}}</p>
+                                    <p>Data Envio: {{ reclamacao.dataEnvio | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                                    <p>Data Atendimento: {{ reclamacao.dataAtendimento | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
+                                    <p>Situacao: {{reclamacao.situacao}}</p>
+                                </a>
+
+                            </div>        
+                 
+                </ion-item>
+
+              </ion-list>            
+  </ion-content>
+</ion-view>

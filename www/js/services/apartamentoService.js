@@ -37,6 +37,21 @@ angular.module('apartamento.service', [])
       return deferred.promise;
     }
 
+    function getListaEdificio(edificioId) {
+
+      var deferred = $q.defer();
+
+      $http.get('http://'+SERVIDOR.endereco+'/api/apartamentos/edificio/'+edificioId)
+        .success(function(data) {
+          deferred.resolve(data);
+        })
+        .error(function(response) {
+          deferred.reject(response);
+        });
+
+      return deferred.promise;
+    }
+
 
     function put(apartamento) {
 
@@ -87,6 +102,7 @@ angular.module('apartamento.service', [])
 
     return {
       getLista: getLista,
+      getListaEdificio: getListaEdificio,
       get: get,
       put: put,
       deletar: deletar,
