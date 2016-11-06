@@ -1,8 +1,8 @@
 <ion-view view-title="Mensagens">
 
-  <ion-nav-buttons side="right">
-    <a class="button button-icon icon ion-plus-circled" ng-click="adicionar()"></a>
-  </ion-nav-buttons>
+    <ion-nav-buttons side="right" >
+      <a class="button button-icon icon ion-plus-circled" ng-click="adicionar()" ng-if="validaUsuario()"></a>
+    </ion-nav-buttons>
 
   <ion-content>
 
@@ -18,11 +18,12 @@
             {{ mensagem.dataEnvio | date : 'dd/MM/yyyy HH:mm:ss'}}   <i ng-if="mensagem.lida === false" class="icon ion-ios-lightbulb balanced"></i>
           </span>
 
-
-        <ion-option-button class="button-assertive"
-                           ng-click="excluir(mensagem.id)">
-          Excluir
-        </ion-option-button>
+        <div ng-if="validaUsuario()">
+          <ion-option-button class="button-assertive"
+                            ng-click="excluir(mensagem.id)">
+            Excluir
+          </ion-option-button>
+        </div>
 
       </ion-item>
 

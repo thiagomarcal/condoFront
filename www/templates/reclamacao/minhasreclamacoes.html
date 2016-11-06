@@ -18,6 +18,9 @@
                                     <p>Data Envio: {{ reclamacao.dataEnvio | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
                                     <p>Data Atendimento: {{ reclamacao.dataAtendimento | date : 'dd/MM/yyyy HH:mm:ss'}}</p>
                                     <p>Situacao: {{reclamacao.situacao}}</p>
+                                    <div ng-if="reclamacao.picture">
+                                        <img ng-src="data:image/jpeg;base64,{{reclamacao.picture}}" style="width:100%; height: auto;">
+                                    </div>
                                 </a>
 
                             </div>        
