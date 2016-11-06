@@ -1,9 +1,6 @@
 angular.module('mensagem.controller', [])
 
-.controller('MensagemCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, mensagem, mensagens, MensagemService, murais, MuralService, SocketService, $ionicPlatform, $cordovaCamera, $cordovaImagePicker) {
-
-
-
+.controller('MensagemCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, mensagem, mensagens, MensagemService, murais, MuralService, SocketService, $ionicPlatform, $cordovaCamera, $cordovaImagePicker, USER_ROLES) {
 
 	$scope.mensagens = mensagens;
 
@@ -164,5 +161,10 @@ angular.module('mensagem.controller', [])
 		return new Blob(byteArrays, { type: contentType });
 		//return byteArrays[0];
 		}
+
+	$scope.validaUsuario = function () {
+		return AuthService.isAuthorized([USER_ROLES.admin]);
+	};
+
 
 });

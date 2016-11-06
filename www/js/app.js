@@ -1006,7 +1006,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
             },
             controller: 'MensagemCtrl'
           }
-        }, data: {authorizedRoles: [USER_ROLES.admin]}
+        }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       })
 
       .state('app.mensagem', {
@@ -1026,7 +1026,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
             }, controller: 'MensagemCtrl'
           }
         },
-        data: {authorizedRoles: [USER_ROLES.admin]}
+        data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       })
 
       .state('app.mensagemEditar', {
@@ -1523,7 +1523,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
           }
         },
         data: {
-          authorizedRoles: [USER_ROLES.admin]
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
         }
       })
        .state('app.controlesReclamacoes', {
@@ -1582,10 +1582,6 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
           }
         }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
       });
-
-
-
-
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
       var $state = $injector.get("$state");

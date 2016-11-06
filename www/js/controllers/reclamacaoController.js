@@ -1,6 +1,6 @@
 angular.module('reclamacao.controller', [])
 
-.controller('ReclamacaoCtrl', function($scope, $rootScope, $state, $ionicPopup, AuthService, $stateParams, reclamacao, reclamacoes, blocos, areas, ReclamacaoService, EdificioService, ApartamentoService, UserSocketService) {
+.controller('ReclamacaoCtrl', function($scope, $rootScope, $state, $ionicPlatform, $cordovaCamera, $ionicPopup, AuthService, $stateParams, reclamacao, reclamacoes, blocos, areas, ReclamacaoService, EdificioService, ApartamentoService, UserSocketService) {
 
 	$scope.reclamacoes = reclamacoes;
 	$scope.reclamacao = reclamacao;
@@ -93,7 +93,7 @@ angular.module('reclamacao.controller', [])
 	};
 
 
-	$scope.postarImagem = function(mensagem) {
+	$scope.postarImagem = function(reclamacao) {
 
 		var options = {
 	        maximumImagesCount: 1, // Max number of selected images, I'm using only one for this example
@@ -119,7 +119,7 @@ angular.module('reclamacao.controller', [])
 		    $cordovaCamera.getPicture(options).then(function(imageData) {
 		    	var image = document.getElementById('myImage');
 				image.src = "data:image/jpeg;base64," + imageData;
-		      	mensagem.picture = imageData;
+		      	reclamacao.picture = imageData;
 
 		    }, function(err) {
 		      // error

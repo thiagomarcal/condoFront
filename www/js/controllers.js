@@ -74,8 +74,11 @@ angular.module('starter.controllers', [])
             if (message.titulo === 'Encomenda CondoApp') {
               $state.go('app.minhasencomendas');
             }
-            if (messagle.titulo === 'Reserva CondoApp') {
+            if (message.titulo === 'Reserva CondoApp') {
               $state.go('app.reservas');
+            }
+            if (message.titulo === 'Reclamacao CondoApp') {
+              $state.go('app.minhasreclamacoes');
             }
 
           });
@@ -83,6 +86,9 @@ angular.module('starter.controllers', [])
 
       if (message.titulo === 'Encomenda CondoApp') {
         $rootScope.$emit('minhasEncoAlt', {novoControleEntrega: message});
+      }
+      if (message.titulo === 'Reclamacao CondoApp') {
+        $rootScope.$emit('minhasReclamaAlt', {novoControleEntrega: message});
       }
   });
 

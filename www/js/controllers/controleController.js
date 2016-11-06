@@ -161,7 +161,7 @@ angular.module('controle.controller', [])
     	
 		var notificacao = {};
 		notificacao.titulo = 'Reclamacao CondoApp';
-		notificacao.descricao = 'Sua reclamacao foi verificar! Em breve daremos um retorno!';
+		notificacao.descricao = 'Sua reclamacao está sendo verificada! Em breve daremos um retorno!';
 		notificacao.morador =  reclamacao.morador.id;
 
 		UserSocketService.sendMorador(notificacao);
@@ -172,7 +172,7 @@ angular.module('controle.controller', [])
 		$scope.$emit('listaControleReclamacaoAlterada');
 
     };
-ion-email
+
     $scope.reclamacaoAtendida = function (reclamacao) {
     	reclamacao.situacao = 'Atendida';
     	reclamacao.dataAtendimento = new Date();
