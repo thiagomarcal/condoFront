@@ -13,8 +13,8 @@ angular.module('starter')
 })
 
 .constant('SERVIDOR', {
-  //endereco: 'localhost:8080'
-  endereco: '192.168.1.133:8080'
+  endereco: 'localhost:8080'
+  //endereco: '192.168.1.133:8080'
 });
 
 

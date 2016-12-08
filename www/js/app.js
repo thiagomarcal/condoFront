@@ -8,7 +8,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
                 'bloco.controller', 'bloco.service', 'area.controller', 'area.service', 'usuario.controller', 'usuario.service', 'mural.controller', 'mural.service',
                   'visitante.controller', 'visitante.service', 'apartamento.controller', 'apartamento.service',
                   'edificio.service', 'edificio.controller', 'morador.controller', 'morador.service', 'pessoa.service', 'mensagem.controller', 'mensagem.service', 'socket.service', 'reservasocket.service', 'controlesocket.service', 'usersocket.service',  
-                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller', 'controle.controller', 'cadastro.controller', 'encomenda.service', 'encomenda.controller', 'reclamacao.service', 'reclamacao.controller'])
+                   'veiculo.service', 'veiculo.controller', 'reserva.service', 'reserva.controller', 'controle.controller', 'cadastro.controller', 'encomenda.service', 'encomenda.controller', 'reclamacao.service', 'reclamacao.controller', 'enquete.service', 'enquete.controller'])
 
 
   .run(function($ionicPlatform) {
@@ -1581,6 +1581,78 @@ angular.module('starter', ['ionic', 'ngCordova', 'ui.rCalendar', 'starter.contro
             controller: 'ReclamacaoCtrl'
           }
         }, data: {authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]}
+      })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      .state('app.enquetes', {
+        url: '/enquetes',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/enquete/enquetes.html',
+            resolve: {
+              enquetes: function (EnqueteService) {
+                return EnqueteService.getLista();
+              },
+              enquete: function () {
+                return {};
+              }
+            },
+            controller: 'EnqueteCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+       .state('app.enquete', {
+        url: '/enquete/:enqueteId',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/enquete/enquete.html', 
+            resolve: {
+              enquetes: function () {
+                return {};
+              },
+              enquete: function (EnqueteService, $stateParams) {
+                return EnqueteService.get($stateParams.reclamacaoId);
+              }
+            }, controller: 'EnqueteCtrl'
+          }
+        }, data: {authorizedRoles: [USER_ROLES.admin]}
+      })
+
+      .state('app.enqueteAdicionar', {
+        url: '/enquete/adicionar/',
+        // params: {
+        //     dataReserva: null
+        // },
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/enquete/enquete_adicionar.html',
+            resolve: {
+              enquetes: function(){
+                return {};
+              },
+              enquete: function(){
+                return {};
+              }
+            },
+            controller: 'EnqueteCtrl'
+          }
+        },
+        data: {
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
+        }
       });
 
     $urlRouterProvider.otherwise(function ($injector, $location) {
